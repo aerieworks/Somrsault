@@ -4,7 +4,8 @@
 
     var defaults = {
         expandTagList: true,
-        warnIfLosingPlace: true
+        warnIfLosingPlace: true,
+        doNotWarnOnReblog: true
     };
 
     $.extend(window.Somr, {
