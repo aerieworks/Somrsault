@@ -6,20 +6,30 @@ $(function () {
         return $('[name=' + optName + ']');
     }
 
+    function getBoolean(optName) {
+        return !!(getField(optName).attr('checked'));
+    }
+
+    function setBoolean(optName, value) {
+        var field = getField(optName);
+        if (value) {
+            field.attr('checked', 'checked');
+        } else {
+            field.removeAttr('checked');
+        }
+    }
+
     function saveOptions() {
         $.blockUI({ message: $('#savingMessage') }); 
-        options.expandTagList = !!(getField('expandTagList').attr('checked'));
+        options.expandTagList = getBoolean('expandTagList');
+        options.warnIfLosingPlace = getBoolean('warnIfLosingPlace');
         options.save($.unblockUI);
     }
 
     function resetOptions() {
-        if (options.expandTagList) {
-            getField('expandTagList').attr('checked', 'checked');
-        } else {
-            getField('expandTagList').removeAttr('checked');
-        }
+        setBoolean('expandTagList', options.expandTagList);
+        setBoolean('warnIfLosingPlace', options.warnIfLosingPlace);
     }
-
 
     $.blockUI({ message: $('#loadingMessage') });
     options = new Somr.Options();

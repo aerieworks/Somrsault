@@ -2,10 +2,15 @@
 (function () {
     var OPTIONS_KEY = "options";
 
+    var defaults = {
+        expandTagList: true,
+        warnIfLosingPlace: true
+    };
+
     $.extend(window.Somr, {
         Options: function Options() {
             // Initialize options to defaults.
-            this.expandTagList = true;
+            $.extend(this, defaults);
         }
     });
 
