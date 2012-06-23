@@ -5,7 +5,9 @@
     var defaults = {
         expandTagList: true,
         warnIfLosingPlace: true,
-        doNotWarnOnReblog: true
+        doNotWarnOnReblog: true,
+        rejectTags: {},
+        rejectUsers: {}
     };
 
     $.extend(window.Somr, {

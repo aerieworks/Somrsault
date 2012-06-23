@@ -1,5 +1,5 @@
-"use strict";
-(function () {
+'use strict';
+(function ($) {
     window.Somr = {};
 
     window.Somr.util = {
@@ -13,4 +13,14 @@
             }
         }
     };
-})();
+
+    $.fn.extend({
+        disable: function () {
+            this.attr('disabled', 'disabled');
+        },
+
+        enable: function () {
+            this.removeAttr('disabled');
+        }
+    });
+})(jQuery);

@@ -22,6 +22,28 @@
                     <label for="doNotWarnOnReblog">Do not warn when reblogging</label>
                 </div>
             </div>
+
+            <hr />
+
+            <div class="ruleSet">
+                <label for="newRejectUser" class="rejectMessage">REJECT these users:</label>
+                <br />
+                <input type="text" id="newRejectUser" size="20" />
+                <input type="button" id="addRejectUser" value="+" />
+                <input type="button" id="delRejectUser" value="-" />
+                <br />
+                <select id="rejectUsers" class="ruleList" size="10" multiple="multiple"></select>
+            </div>
+
+            <div class="ruleSet">
+                <label for="newRejectTag" class="rejectMessage">REJECT these tags:</label>
+                <br />
+                <input type="text" id="newRejectTag" size="20" />
+                <input type="button" id="addRejectTag" value="+" />
+                <input type="button" id="delRejectTag" value="-" />
+                <br />
+                <select id="rejectTags" class="ruleList" size="10" multiple="multiple"></select>
+            </div>
         </fieldset>
 
         <button id="btnSave">Save Options</button>
@@ -39,6 +61,7 @@
         <script src="js/Somr/Core.js"></script>
         <script src="js/Somr/Storage_Direct.js"></script>
         <script src="js/Somr/Options.js"></script>
+        <script src="js/Somr/FilterBuilder.js"></script>
         <script src="js/options.js"></script>
     </body>
 </html>

@@ -29,6 +29,7 @@
                 "js/Somr/Core.js",
                 "js/Somr/Storage_Message.js",
                 "js/Somr/Options.js",
+                "js/Somr/PostFilter.js",
                 "js/page.js"
             ]
         }

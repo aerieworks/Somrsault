@@ -18,3 +18,16 @@ legend {
 .subsetting {
     margin-left: 20px;
 }
+
+.ruleSet {
+    float: left;
+    margin-right: 20px;
+}
+
+.rejectMessage {
+    color: #a00000;
+}
+
+.ruleList {
+    width: 195px;
+}

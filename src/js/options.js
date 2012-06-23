@@ -1,6 +1,8 @@
 "use strict";
 $(function () {
     var options;
+    var rejectUsersBuilder;
+    var rejectTagsBuilder;
 
     function getField(optName) {
         return $('[name=' + optName + ']');
@@ -34,6 +36,8 @@ $(function () {
         options.expandTagList = getBoolean('expandTagList');
         options.warnIfLosingPlace = getBoolean('warnIfLosingPlace');
         options.doNotWarnOnReblog = getBoolean('doNotWarnOnReblog');
+        options.rejectUsers = rejectUsersBuilder.getRules();
+        options.rejectTags = rejectTagsBuilder.getRules();
         options.save($.unblockUI);
     }
 
@@ -41,6 +45,8 @@ $(function () {
         setBoolean('expandTagList', options.expandTagList);
         setBoolean('warnIfLosingPlace', options.warnIfLosingPlace);
         setBoolean('doNotWarnOnReblog', options.doNotWarnOnReblog);
+        rejectUsersBuilder.setRules(options.rejectUsers);
+        rejectTagsBuilder.setRules(options.rejectTags);
 
         onWarnIfLosingPlaceChange();
     }
@@ -50,6 +56,8 @@ $(function () {
     }
 
     $.blockUI({ message: $('#loadingMessage') });
+    rejectUsersBuilder = new Somr.FilterBuilder($('#newRejectUser'), $('#addRejectUser'), $('#delRejectUser'), $('#rejectUsers'));
+    rejectTagsBuilder = new Somr.FilterBuilder($('#newRejectTag'), $('#addRejectTag'), $('#delRejectTag'), $('#rejectTags'));
     options = new Somr.Options();
     options.load(function () {
         resetOptions();
