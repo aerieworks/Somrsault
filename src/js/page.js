@@ -7,9 +7,8 @@
         var doNotWarn = false;
         var warnTriggerHeight = postContainer.offset().top + postContainer.outerHeight();
 
-
         // Set the doNotWarn flag if the user clicks the "reblog" link without any modifier keys.
-        $('a.reblog_button').live('click', function(ev) {
+        postContainer.on('click', '.reblog_button', function(ev) {
             doNotWarn = !(ev.altKey || ev.ctrlKey || ev.metaKey || ev.shiftKey);
         });
 
