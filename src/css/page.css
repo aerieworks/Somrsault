@@ -1,0 +1,5 @@
+#posts.expandTags .post .footer_links,
+#posts.expandTags .post .footer_links .tags {
+    white-space: normal !important;
+    display: block !important;
+}

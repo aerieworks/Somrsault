@@ -1,0 +1,36 @@
+{
+    "name": "Somrsault",
+    "version": "1.0",
+    "manifest_version": 2,
+    "description": "Tumblr UI tweaks to make it easier to share feels.",
+    "offline_enabled": false,
+
+    "background": {
+        "scripts": [
+            "js/lib/jquery-1.7.2.min.js",
+            "js/Somr/Core.js",
+            "js/Somr/Storage_Direct.js",
+            "js/Somr/Options.js",
+            "js/background.js"
+        ]
+    },
+
+    "options_page": "options.html",
+
+    "content_scripts": [
+        {
+            "matches": [ 
+                "http://www.tumblr.com/dashboard",
+                "http://www.tumblr.com/dashboard/*"
+            ],
+            "css": [ "css/page.css" ],
+            "js": [
+                "js/lib/jquery-1.7.2.min.js",
+                "js/Somr/Core.js",
+                "js/Somr/Storage_Message.js",
+                "js/Somr/Options.js",
+                "js/page.js"
+            ]
+        }
+    ]
+}

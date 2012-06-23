@@ -1,0 +1,16 @@
+html {
+    font-family: verdana;
+}
+
+fieldset {
+    margin: 12px;
+    width: 600px;
+}
+
+legend {
+    padding: 0 12px;
+}
+
+.blockMessage {
+    display: none;
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="css/options.css" type="text/css" media="screen" />
+        <title>Somrsault Options</title>
+    </head>
+    <body>
+        <h1>Somrsault Options</h1>
+
+        <fieldset>
+            <legend>Dashboard Tweaks</legend>
+            <label>
+                <input type="checkbox" name="expandTagList" />
+                Expand tag lists on dashboard posts
+            </label>
+        </fieldset>
+
+        <button id="btnSave">Save Options</button>
+
+        <div id="loadingMessage" class="blockMessage">
+            <h2>Loading options...</h2>
+        </div>
+
+        <div id="savingMessage" class="blockMessage">
+            <h2>Saving options...</h2>
+        </div>
+
+        <script src="js/lib/jquery-1.7.2.min.js"></script>
+        <script src="js/lib/jquery.blockUI.js"></script>
+        <script src="js/Somr/Core.js"></script>
+        <script src="js/Somr/Storage_Direct.js"></script>
+        <script src="js/Somr/Options.js"></script>
+        <script src="js/options.js"></script>
+    </body>
+</html>
