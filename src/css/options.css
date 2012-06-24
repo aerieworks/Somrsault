@@ -23,9 +23,13 @@ legend {
     margin-left: 22px;
 }
 
+.ruleSetPair {
+    clear: both;
+}
+
 .ruleSet {
     float: left;
-    margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 .acceptMessage {
