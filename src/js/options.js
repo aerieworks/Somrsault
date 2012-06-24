@@ -1,41 +1,56 @@
-"use strict";
+'use strict';
 $(function () {
     var options;
     var rejectUsersBuilder;
     var rejectTagsBuilder;
 
     function getField(optName) {
-        return $('[name=' + optName + ']');
+        return $('#' + optName);
     }
 
-    function getBoolean(optName) {
-        return !!(getField(optName).attr('checked'));
+    function getBoolean(option) {
+        if (typeof option == 'string') {
+            option = getField(option);
+        }
+        return !!(option.attr('checked'));
     }
 
-    function setBoolean(optName, value) {
+    function setBoolean(optName, value, hasSubsettings) {
         var field = getField(optName);
+        setBooleanAttribute(field, 'checked', value);
+
+        if (hasSubsettings) {
+            updateSubsettings(field);
+            field.click(function () { updateSubsettings(field); });
+        }
+    }
+
+    function setBooleanAttribute(nodes, property, value) {
         if (value) {
-            field.attr('checked', 'checked');
+            nodes.attr(property, property);
         } else {
-            field.removeAttr('checked');
+            nodes.removeAttr(property);
         }
     }
 
-    function setEnabled(optName, isEnabled) {
-        var field = getField(optName);
+    function updateSubsettings(field) {
+        var subsettings = field.siblings('.subsettings');
+        if (subsettings.length > 0) {
+            var value = getBoolean(field);
+            subsettings.toggleClass('disabled', !value);
 
-        if (isEnabled) {
-            field.removeAttr('disabled');
-        } else {
-            field.attr('disabled', 'disabled');
+            var subfields = subsettings.find('input').add(subsettings.find('select'));
+            setBooleanAttribute(subfields, 'disabled', !value);
         }
     }
+
 
     function saveOptions() {
         $.blockUI({ message: $('#savingMessage') }); 
         options.expandTagList = getBoolean('expandTagList');
         options.warnIfLosingPlace = getBoolean('warnIfLosingPlace');
         options.doNotWarnOnReblog = getBoolean('doNotWarnOnReblog');
+        options.filterDashboard = getBoolean('filterDashboard');
         options.rejectUsers = rejectUsersBuilder.getRules();
         options.rejectTags = rejectTagsBuilder.getRules();
         options.save($.unblockUI);
@@ -43,16 +58,11 @@ $(function () {
 
     function resetOptions() {
         setBoolean('expandTagList', options.expandTagList);
-        setBoolean('warnIfLosingPlace', options.warnIfLosingPlace);
+        setBoolean('warnIfLosingPlace', options.warnIfLosingPlace, true);
         setBoolean('doNotWarnOnReblog', options.doNotWarnOnReblog);
+        setBoolean('filterDashboard', options.filterDashboard, true);
         rejectUsersBuilder.setRules(options.rejectUsers);
         rejectTagsBuilder.setRules(options.rejectTags);
-
-        onWarnIfLosingPlaceChange();
-    }
-
-    function onWarnIfLosingPlaceChange() {
-        setEnabled('doNotWarnOnReblog', getBoolean('warnIfLosingPlace'));
     }
 
     $.blockUI({ message: $('#loadingMessage') });
@@ -62,7 +72,6 @@ $(function () {
     options.load(function () {
         resetOptions();
         $('#btnSave').click(saveOptions);
-        getField('warnIfLosingPlace').click(onWarnIfLosingPlaceChange);
         $.unblockUI();
     });
 });

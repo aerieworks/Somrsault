@@ -6,6 +6,7 @@
         expandTagList: true,
         warnIfLosingPlace: true,
         doNotWarnOnReblog: true,
+        filterDashboard: true,
         rejectTags: {},
         rejectUsers: {}
     };

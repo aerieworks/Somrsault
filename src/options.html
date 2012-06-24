@@ -11,38 +11,44 @@
         <fieldset>
             <legend>Dashboard Tweaks</legend>
             <div>
-                <input type="checkbox" id="expandTagList" name="expandTagList" />
+                <input type="checkbox" id="expandTagList" />
                 <label for="expandTagList">Expand tag lists on dashboard posts</label>
             </div>
             <div>
-                <input type="checkbox" id="warnIfLosingPlace" name="warnIfLosingPlace" />
+                <input type="checkbox" id="warnIfLosingPlace" />
                 <label for="warnIfLosingPlace">Warn me if I am about to lose my place on the dashboard</label>
-                <div class="subsetting">
-                    <input type="checkbox" id="doNotWarnOnReblog" name="doNotWarnOnReblog" />
+                <div class="subsettings">
+                    <input type="checkbox" id="doNotWarnOnReblog" />
                     <label for="doNotWarnOnReblog">Do not warn when reblogging</label>
                 </div>
             </div>
+        </fieldset>
 
-            <hr />
+        <fieldset>
+            <legend>Dashboard Filter</legend>
+            <input type="checkbox" id="filterDashboard" />
+            <label for="filterDashboard">Hide posts on my dashboard based on user or tag.</label>
 
-            <div class="ruleSet">
-                <label for="newRejectUser" class="rejectMessage">REJECT these users:</label>
-                <br />
-                <input type="text" id="newRejectUser" size="20" />
-                <input type="button" id="addRejectUser" value="+" />
-                <input type="button" id="delRejectUser" value="-" />
-                <br />
-                <select id="rejectUsers" class="ruleList" size="10" multiple="multiple"></select>
-            </div>
+            <div class="subsettings">
+                <div class="ruleSet">
+                    <label for="newRejectUser" class="rejectMessage">Hide these users:</label>
+                    <br />
+                    <input type="text" id="newRejectUser" size="20" />
+                    <input type="button" id="addRejectUser" value="+" />
+                    <input type="button" id="delRejectUser" value="-" />
+                    <br />
+                    <select id="rejectUsers" class="ruleList" size="10" multiple="multiple"></select>
+                </div>
 
-            <div class="ruleSet">
-                <label for="newRejectTag" class="rejectMessage">REJECT these tags:</label>
-                <br />
-                <input type="text" id="newRejectTag" size="20" />
-                <input type="button" id="addRejectTag" value="+" />
-                <input type="button" id="delRejectTag" value="-" />
-                <br />
-                <select id="rejectTags" class="ruleList" size="10" multiple="multiple"></select>
+                <div class="ruleSet">
+                    <label for="newRejectTag" class="rejectMessage">Hide these tags:</label>
+                    <br />
+                    <input type="text" id="newRejectTag" size="20" />
+                    <input type="button" id="addRejectTag" value="+" />
+                    <input type="button" id="delRejectTag" value="-" />
+                    <br />
+                    <select id="rejectTags" class="ruleList" size="10" multiple="multiple"></select>
+                </div>
             </div>
         </fieldset>
 

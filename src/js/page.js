@@ -37,6 +37,8 @@
             registerLosingPlaceWarning();
         }
 
-        new Somr.PostFilter(options, postContainer);
+        if (options.filterDashboard) {
+            new Somr.PostFilter(options, postContainer);
+        }
     });
 })(jQuery);
