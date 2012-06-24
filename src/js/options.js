@@ -2,7 +2,9 @@
 $(function () {
     var options;
     var rejectUsersBuilder;
+    var acceptTagsBuilder;
     var rejectTagsBuilder;
+    var acceptUsersBuilder;
 
     function getField(optName) {
         return $('#' + optName);
@@ -52,7 +54,9 @@ $(function () {
         options.doNotWarnOnReblog = getBoolean('doNotWarnOnReblog');
         options.filterDashboard = getBoolean('filterDashboard');
         options.rejectUsers = rejectUsersBuilder.getRules();
+        options.acceptTags = acceptTagsBuilder.getRules();
         options.rejectTags = rejectTagsBuilder.getRules();
+        options.acceptUsers = acceptUsersBuilder.getRules();
         options.save($.unblockUI);
     }
 
@@ -62,12 +66,16 @@ $(function () {
         setBoolean('doNotWarnOnReblog', options.doNotWarnOnReblog);
         setBoolean('filterDashboard', options.filterDashboard, true);
         rejectUsersBuilder.setRules(options.rejectUsers);
+        acceptTagsBuilder.setRules(options.acceptTags);
         rejectTagsBuilder.setRules(options.rejectTags);
+        acceptUsersBuilder.setRules(options.acceptUsers);
     }
 
     $.blockUI({ message: $('#loadingMessage') });
     rejectUsersBuilder = new Somr.FilterBuilder($('#newRejectUser'), $('#addRejectUser'), $('#delRejectUser'), $('#rejectUsers'));
+    acceptTagsBuilder = new Somr.FilterBuilder($('#newAcceptTag'), $('#addAcceptTag'), $('#delAcceptTag'), $('#acceptTags'));
     rejectTagsBuilder = new Somr.FilterBuilder($('#newRejectTag'), $('#addRejectTag'), $('#delRejectTag'), $('#rejectTags'));
+    acceptUsersBuilder = new Somr.FilterBuilder($('#newAcceptUser'), $('#addAcceptUser'), $('#delAcceptUser'), $('#acceptUsers'));
     options = new Somr.Options();
     options.load(function () {
         resetOptions();

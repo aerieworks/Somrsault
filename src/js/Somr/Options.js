@@ -7,8 +7,10 @@
         warnIfLosingPlace: true,
         doNotWarnOnReblog: true,
         filterDashboard: true,
-        rejectTags: {},
-        rejectUsers: {}
+        rejectTags: [],
+        acceptUsers: [],
+        rejectUsers: [],
+        acceptTags: []
     };
 
     $.extend(window.Somr, {

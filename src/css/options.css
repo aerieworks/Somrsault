@@ -28,6 +28,10 @@ legend {
     margin-right: 20px;
 }
 
+.acceptMessage {
+    color: #00a000;
+}
+
 .rejectMessage {
     color: #a00000;
 }

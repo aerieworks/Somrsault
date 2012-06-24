@@ -31,9 +31,9 @@
 
             <div class="subsettings">
                 <div class="ruleSet">
-                    <label for="newRejectUser" class="rejectMessage">Hide these users:</label>
+                    <label for="newRejectUser" class="rejectMessage">Hide posts from:</label>
                     <br />
-                    <input type="text" id="newRejectUser" size="20" />
+                    <input type="text" id="newRejectUser" size="20" placeholder="user" />
                     <input type="button" id="addRejectUser" value="+" />
                     <input type="button" id="delRejectUser" value="-" />
                     <br />
@@ -41,13 +41,33 @@
                 </div>
 
                 <div class="ruleSet">
-                    <label for="newRejectTag" class="rejectMessage">Hide these tags:</label>
+                    <label for="newAcceptTag" class="acceptMessage">Except when tagged:</label>
                     <br />
-                    <input type="text" id="newRejectTag" size="20" />
+                    <input type="text" id="newAcceptTag" size="20" placeholder="tag" />
+                    <input type="button" id="addAcceptTag" value="+" />
+                    <input type="button" id="delAcceptTag" value="-" />
+                    <br />
+                    <select id="acceptTags" class="ruleList" size="10" multiple="multiple"></select>
+                </div>
+
+                <div class="ruleSet">
+                    <label for="newRejectTag" class="rejectMessage">Hide posts tagged:</label>
+                    <br />
+                    <input type="text" id="newRejectTag" size="20" placeholder="tag" />
                     <input type="button" id="addRejectTag" value="+" />
                     <input type="button" id="delRejectTag" value="-" />
                     <br />
                     <select id="rejectTags" class="ruleList" size="10" multiple="multiple"></select>
+                </div>
+
+                <div class="ruleSet">
+                    <label for="newAcceptUser" class="acceptMessage">Except when from:</label>
+                    <br />
+                    <input type="text" id="newAcceptUser" size="20" placeholder="user" />
+                    <input type="button" id="addAcceptUser" value="+" />
+                    <input type="button" id="delAcceptUser" value="-" />
+                    <br />
+                    <select id="acceptUsers" class="ruleList" size="10" multiple="multiple"></select>
                 </div>
             </div>
         </fieldset>
