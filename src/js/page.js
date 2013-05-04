@@ -27,18 +27,24 @@
 
   options.load(function () {
     if (options.expandTagList) {
-      Somr.util.log('Expanding tags');
+      Somr.util.log('Expanding tags.');
       postContainer.addClass('expandTags');
     } else {
-      Somr.util.log('Not expanding tags');
+      Somr.util.log('Not expanding tags.');
     }
 
     if (options.warnIfLosingPlace) {
+      Somr.util.log('Warning when losing dashboard place.');
       registerLosingPlaceWarning();
+    } else {
+      Somr.util.log('Not warning when losing dashboard place.');
     }
 
     if (options.filterDashboard) {
+      Somr.util.log('Filtering dashboard posts.');
       new Somr.PostFilter(options, postContainer);
+    } else {
+      Somr.util.log('Not filtering dashboard posts.');
     }
   });
 })(jQuery);

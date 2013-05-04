@@ -9,14 +9,19 @@ window.Somr.PostFilter = (function () {
       if (typeof prefix == 'string') {
         key = prefix + key;
       }
+      Somr.util.log('buildRuleMap: key: "' + key + '"');
       map[key] = true;
     }
 
     return map;
   }
 
-  function getPostUser(post) {
-    return post.children('.post_info').children('a:first').text();
+  function getPostUsers(post) {
+    var users = [];
+    post.find('.post_info a').not('.reblog_follow_button').each(function () {
+      users.push(this.textContent);
+    });
+    return users;
   }
 
   function getPostTags(post) {
@@ -29,8 +34,15 @@ window.Somr.PostFilter = (function () {
     return tagList;
   }
 
-  function isPostBy(postUser, userMap) {
-    return !!(userMap[postUser]);
+  function isPostBy(postUsers, userMap) {
+    var postUsersLength = postUsers.length;
+    for (var i = 0; i < postUsersLength; i++) {
+      if (!!userMap[postUsers[i]]) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   function isPostTagged(postTags, tagMap) {
@@ -45,22 +57,23 @@ window.Somr.PostFilter = (function () {
   function filterPosts(me, posts) {
     var count = posts.length;
     var lastUser;
-    var postUser;
+    var postUsers;
     var postTags;
     var post;
     for (var i = 0; i < count; i++) {
       post = $(posts[i]);
-      postUser = getPostUser(post);
-      if (postUser == '') {
-        postUser = lastUser;
+      postUsers = getPostUsers(post);
+      if (postUsers.length == 0) {
+        postUsers = [ lastUser ];
       } else {
-        lastUser = postUser;
+        lastUser = postUsers[0];
       }
+      Somr.util.log('Examining post by "' + postUsers.join(', ') + '"...');
 
       postTags = getPostTags(post);
 
-      if ((isPostBy(postUser, me.rejectUsers) && !isPostTagged(postTags, me.acceptTags)) ||
-        (isPostTagged(postTags, me.rejectTags) && !isPostBy(postUser, me.acceptUsers))) {
+      if ((isPostBy(postUsers, me.rejectUsers) && !isPostTagged(postTags, me.acceptTags)) ||
+        (isPostTagged(postTags, me.rejectTags) && !isPostBy(postUsers, me.acceptUsers))) {
         rejectPost(post);
       }
 
@@ -76,16 +89,22 @@ window.Somr.PostFilter = (function () {
   function PostFilter(options, postContainer) {
     var me = this;
     this.lastPost = null;
+    Somr.util.log('Building rejected users map...');
     this.rejectUsers = buildRuleMap(options.rejectUsers);
+    Somr.util.log('Building accepted tags map...');
     this.acceptTags = buildRuleMap(options.acceptTags, '#');
+    Somr.util.log('Building rejected tags map...');
     this.rejectTags = buildRuleMap(options.rejectTags, '#');
+    Somr.util.log('Building accepted users map...');
     this.acceptUsers = buildRuleMap(options.acceptUsers);
 
     filterPosts(this, postContainer.children('.post').not('#new_post'));
 
     // When the post container is modified, look for new posts and filter them.
     postContainer.bind('DOMSubtreeModified', function (ev) {
+      Somr.util.log('Post container modified.');
       if (me.lastPost != null) {
+        Somr.util.log('Filtering newly loaded posts...');
         filterPosts(me, me.lastPost.nextAll('.post'));
       }
     });
