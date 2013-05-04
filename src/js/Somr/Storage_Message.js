@@ -1,12 +1,12 @@
 'use strict';
 (function () {
-    window.Somr.Storage = {
-        save: function save(key, obj, callback) {
-            chrome.extension.sendRequest({ action: 'save', data: { key: key, obj: obj } }, callback);
-        },
+  window.Somr.Storage = {
+    save: function save(key, obj, callback) {
+      chrome.extension.sendRequest({ action: 'save', data: { key: key, obj: obj } }, callback);
+    },
 
-        load: function load(key, callback) {
-            chrome.extension.sendRequest({ action: 'load', data: { key: key } }, callback);
-        }
-    };
+    load: function load(key, callback) {
+      chrome.extension.sendRequest({ action: 'load', data: { key: key } }, callback);
+    }
+  };
 })();
