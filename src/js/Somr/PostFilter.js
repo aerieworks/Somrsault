@@ -18,9 +18,14 @@ window.Somr.PostFilter = (function () {
 
   function getPostUsers(post) {
     var users = [];
-    post.find('.post_info a').not('.reblog_follow_button').each(function () {
-      users.push(this.textContent);
+    post.find('a').each(function () {
+      var username = this.textContent.trim();
+      var hrefRe = new RegExp('^http://' + username + '.tumblr.com/');
+      if (hrefRe.test(this.href)) {
+        users.push(username);
+      }
     });
+
     return users;
   }
 
