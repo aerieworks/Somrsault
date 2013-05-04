@@ -1,5 +1,7 @@
-#posts.expandTags .post .footer_links,
-#posts.expandTags .post .footer_links .tags {
-    white-space: normal !important;
-    display: block !important;
+#posts.expandTags .post_tags_wrapper {
+  display: block;
+}
+
+#posts.expandTags .post_tags_wrapper .tags {
+  white-space: normal;
 }
