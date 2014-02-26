@@ -8,9 +8,9 @@
   "background": {
     "scripts": [
       "js/lib/jquery-1.7.2.min.js",
-      "js/Somr/Core.js",
-      "js/Somr/Storage_Direct.js",
-      "js/Somr/Options.js",
+      "js/Somrsault/Core.js",
+      "js/Somrsault/Storage_Direct.js",
+      "js/Somrsault/Options.js",
       "js/background.js"
     ]
   },
@@ -32,10 +32,10 @@
       "css": [ "css/page.css" ],
       "js": [
         "js/lib/jquery-1.7.2.min.js",
-        "js/Somr/Core.js",
-        "js/Somr/Storage_Message.js",
-        "js/Somr/Options.js",
-        "js/Somr/PostFilter.js",
+        "js/Somrsault/Core.js",
+        "js/Somrsault/Storage_Message.js",
+        "js/Somrsault/Options.js",
+        "js/Somrsault/PostFilter.js",
         "js/page.js"
       ]
     }

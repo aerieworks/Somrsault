@@ -1,8 +1,8 @@
 'use strict';
 (function ($) {
-  window.Somr = {};
+  window.Somrsault = {};
 
-  window.Somr.util = {
+  window.Somrsault.util = {
     log: function (message) {
       console.log('Somrsault: ' + message);
     },

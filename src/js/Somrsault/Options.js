@@ -1,6 +1,6 @@
 'use strict';
-window.Somr.Options = (function () {
-  var OPTIONS_KEY = 'Somr.Options.options';
+window.Somrsault.Options = (function () {
+  var OPTIONS_KEY = 'Somrsault.Options.options';
 
   var defaults = {
     expandTagList: true,
@@ -21,14 +21,14 @@ window.Somr.Options = (function () {
     var me = this;
 
     // Load options from storage.
-    Somr.Storage.load(OPTIONS_KEY, function (deserialized) {
+    Somrsault.Storage.load(OPTIONS_KEY, function (deserialized) {
       $.extend(me, deserialized);
-      Somr.util.safeInvoke(onLoad);
+      Somrsault.util.safeInvoke(onLoad);
     });
   }
 
   function save(onSave) {
-    Somr.Storage.save(OPTIONS_KEY, this, onSave);
+    Somrsault.Storage.save(OPTIONS_KEY, this, onSave);
   }
 
   Options.prototype = {

@@ -1,11 +1,11 @@
 'use strict';
 (function () {
-  window.Somr.Storage = {
+  window.Somrsault.Storage = {
     save: function save(key, obj, callback) {
       var serialized = JSON.stringify(obj);
       localStorage[key] = serialized;
 
-      Somr.util.safeInvoke(callback);
+      Somrsault.util.safeInvoke(callback);
     },
 
     load: function load(key, callback) {

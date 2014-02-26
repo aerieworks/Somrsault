@@ -70,11 +70,11 @@ $(function () {
   }
 
   $.blockUI({ message: $('#loadingMessage') });
-  rejectUsersBuilder = new Somr.FilterBuilder($('#newRejectUser'), $('#addRejectUser'), $('#delRejectUser'), $('#rejectUsers'));
-  acceptTagsBuilder = new Somr.FilterBuilder($('#newAcceptTag'), $('#addAcceptTag'), $('#delAcceptTag'), $('#acceptTags'));
-  rejectTagsBuilder = new Somr.FilterBuilder($('#newRejectTag'), $('#addRejectTag'), $('#delRejectTag'), $('#rejectTags'));
-  acceptUsersBuilder = new Somr.FilterBuilder($('#newAcceptUser'), $('#addAcceptUser'), $('#delAcceptUser'), $('#acceptUsers'));
-  options = new Somr.Options();
+  rejectUsersBuilder = new Somrsault.FilterBuilder($('#newRejectUser'), $('#addRejectUser'), $('#delRejectUser'), $('#rejectUsers'));
+  acceptTagsBuilder = new Somrsault.FilterBuilder($('#newAcceptTag'), $('#addAcceptTag'), $('#delAcceptTag'), $('#acceptTags'));
+  rejectTagsBuilder = new Somrsault.FilterBuilder($('#newRejectTag'), $('#addRejectTag'), $('#delRejectTag'), $('#rejectTags'));
+  acceptUsersBuilder = new Somrsault.FilterBuilder($('#newAcceptUser'), $('#addAcceptUser'), $('#delAcceptUser'), $('#acceptUsers'));
+  options = new Somrsault.Options();
   options.load(function () {
     resetOptions();
     $('#btnSave').click(saveOptions);

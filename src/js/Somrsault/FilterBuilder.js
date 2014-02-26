@@ -1,5 +1,5 @@
 'use strict';
-window.Somr.FilterBuilder = (function () {
+window.Somrsault.FilterBuilder = (function () {
   function addNewRule() {
     addRuleToList.bind(this)(this.newRule.val());
     this.newRule.val('');

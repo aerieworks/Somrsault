@@ -1,5 +1,5 @@
 'use strict';
-window.Somr.PostFilter = (function () {
+window.Somrsault.PostFilter = (function () {
   var blogNameRe = new RegExp('^([0-9a-z_-]+)$');
 
   function buildRuleMap(rules, prefix) {
@@ -11,7 +11,7 @@ window.Somr.PostFilter = (function () {
       if (typeof prefix == 'string') {
         key = prefix + key;
       }
-      Somr.util.log('buildRuleMap: key: "' + key + '"');
+      Somrsault.util.log('buildRuleMap: key: "' + key + '"');
       map[key] = true;
     }
 
@@ -86,7 +86,7 @@ window.Somr.PostFilter = (function () {
       } else {
         lastUser = postUsers[0];
       }
-      Somr.util.log('Examining post by "' + postUsers.join(', ') + '"...');
+      Somrsault.util.log('Examining post by "' + postUsers.join(', ') + '"...');
 
       postTags = getPostTags(post);
 
@@ -107,7 +107,7 @@ window.Somr.PostFilter = (function () {
   }
 
   function rejectPost(post, reason) {
-    Somr.util.log('Hiding post ' + post.attr('id'));
+    Somrsault.util.log('Hiding post ' + post.attr('id'));
 
     var filterNotice = $('<div class="somr-filter-notice post_full clearfix"></div>')
       .append($('<div class="post_header">somrsault</div>'))
@@ -132,13 +132,13 @@ window.Somr.PostFilter = (function () {
   function PostFilter(options, postContainer) {
     var me = this;
     this.lastPost = null;
-    Somr.util.log('Building rejected users map...');
+    Somrsault.util.log('Building rejected users map...');
     this.rejectUsers = buildRuleMap(options.rejectUsers);
-    Somr.util.log('Building accepted tags map...');
+    Somrsault.util.log('Building accepted tags map...');
     this.acceptTags = buildRuleMap(options.acceptTags, '#');
-    Somr.util.log('Building rejected tags map...');
+    Somrsault.util.log('Building rejected tags map...');
     this.rejectTags = buildRuleMap(options.rejectTags, '#');
-    Somr.util.log('Building accepted users map...');
+    Somrsault.util.log('Building accepted users map...');
     this.acceptUsers = buildRuleMap(options.acceptUsers);
 
     filterPosts(this, postContainer.children('.post_container').not('#new_post_buttons').children('.post'));
@@ -153,9 +153,9 @@ window.Somr.PostFilter = (function () {
 
     // When the post container is modified, look for new posts and filter them.
     postContainer.bind('DOMSubtreeModified', function (ev) {
-      Somr.util.log('Post container modified.');
+      Somrsault.util.log('Post container modified.');
       if (me.lastPost != null) {
-        Somr.util.log('Filtering newly loaded posts...');
+        Somrsault.util.log('Filtering newly loaded posts...');
         filterPosts(me, me.lastPost.closest('.post_container').nextAll('.post_container').children('.post'));
       }
     });

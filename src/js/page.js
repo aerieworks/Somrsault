@@ -1,6 +1,6 @@
 'use strict';
 (function ($) {
-  var options = new Somr.Options();
+  var options = new Somrsault.Options();
   var postContainer = $('#posts');
   if (postContainer.length == 0) {
     postContainer = $('#content');
@@ -24,24 +24,24 @@
 
   options.load(function () {
     if (options.expandTagList) {
-      Somr.util.log('Expanding tags.');
+      Somrsault.util.log('Expanding tags.');
       postContainer.addClass('somr-expand-tags');
     } else {
-      Somr.util.log('Not expanding tags.');
+      Somrsault.util.log('Not expanding tags.');
     }
 
     if (options.warnIfLosingPlace) {
-      Somr.util.log('Warning when losing dashboard place.');
+      Somrsault.util.log('Warning when losing dashboard place.');
       registerLosingPlaceWarning();
     } else {
-      Somr.util.log('Not warning when losing dashboard place.');
+      Somrsault.util.log('Not warning when losing dashboard place.');
     }
 
     if (options.filterDashboard) {
-      Somr.util.log('Filtering dashboard posts.');
-      new Somr.PostFilter(options, postContainer);
+      Somrsault.util.log('Filtering dashboard posts.');
+      new Somrsault.PostFilter(options, postContainer);
     } else {
-      Somr.util.log('Not filtering dashboard posts.');
+      Somrsault.util.log('Not filtering dashboard posts.');
     }
   });
 })(jQuery);

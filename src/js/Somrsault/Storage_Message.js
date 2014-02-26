@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  window.Somr.Storage = {
+  window.Somrsault.Storage = {
     save: function save(key, obj, callback) {
       chrome.extension.sendRequest({ action: 'save', data: { key: key, obj: obj } }, callback);
     },
