@@ -1,7 +1,30 @@
-#posts.expandTags .post_tags_wrapper {
+#posts.somr-expand-tags .post_tags {
+  white-space: normal;
+}
+
+.somr-filtered > .post {
+  display: none;
+}
+
+.somr-filter-notice {
+  opacity: 0.5;
+}
+
+.somr-filter-notice:hover {
+  opacity: 1;
+}
+
+.somr-show-post {
+  display: inline-block;
+  margin-left: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.somr-unfiltered > .post {
   display: block;
 }
 
-#posts.expandTags .post_tags_wrapper .tags {
-  white-space: normal;
+.somr-unfiltered > .somr-filter-notice {
+  display: none;
 }

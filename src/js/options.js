@@ -51,7 +51,6 @@ $(function () {
     $.blockUI({ message: $('#savingMessage') });
     options.expandTagList = getBoolean('expandTagList');
     options.warnIfLosingPlace = getBoolean('warnIfLosingPlace');
-    options.doNotWarnOnReblog = getBoolean('doNotWarnOnReblog');
     options.filterDashboard = getBoolean('filterDashboard');
     options.rejectUsers = rejectUsersBuilder.getRules();
     options.acceptTags = acceptTagsBuilder.getRules();
@@ -63,7 +62,6 @@ $(function () {
   function resetOptions() {
     setBoolean('expandTagList', options.expandTagList);
     setBoolean('warnIfLosingPlace', options.warnIfLosingPlace, true);
-    setBoolean('doNotWarnOnReblog', options.doNotWarnOnReblog);
     setBoolean('filterDashboard', options.filterDashboard, true);
     rejectUsersBuilder.setRules(options.rejectUsers);
     acceptTagsBuilder.setRules(options.acceptTags);

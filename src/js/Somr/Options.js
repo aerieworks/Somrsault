@@ -5,7 +5,6 @@ window.Somr.Options = (function () {
   var defaults = {
     expandTagList: true,
     warnIfLosingPlace: true,
-    doNotWarnOnReblog: true,
     filterDashboard: true,
     rejectTags: [],
     acceptUsers: [],
