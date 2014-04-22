@@ -1,93 +1,99 @@
 <!doctype html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="css/options.css" type="text/css" media="screen" />
-        <title>Somrsault Options</title>
-    </head>
-    <body>
-        <h1>Somrsault Options</h1>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/options.css" type="text/css" media="screen" />
+    <title>Somrsault Options</title>
+  </head>
+  <body>
+    <h1>Somrsault Options</h1>
 
-        <fieldset>
-            <legend>Dashboard Tweaks</legend>
-            <div>
-                <input type="checkbox" id="expandTagList" />
-                <label for="expandTagList">Expand tag lists on dashboard posts</label>
-            </div>
-            <div>
-                <input type="checkbox" id="warnIfLosingPlace" />
-                <label for="warnIfLosingPlace">Warn me if I am about to lose my place on the dashboard</label>
-            </div>
-        </fieldset>
+    <div class="actions">
+      <button id="btnSave" class="action primary-action">Save Options</button>
+      <button id="btnReset" class="action">Reset</button>
+    </div>
 
-        <fieldset>
-            <legend>Dashboard Filter</legend>
-            <input type="checkbox" id="filterDashboard" />
-            <label for="filterDashboard">Hide posts on my dashboard based on user or tag.</label>
+    <div class="tab-buttons">
+      <a id="button-dashboard-tweaks" href="#dashboard-tweaks" class="tab-button"><span class="tab-button-content">Dashboard Tweaks</span></a>
+      <a id="button-old-filters" href="#old-filters" class="tab-button"><span class="tab-button-content">Filters</span></a>
+    </div>
 
-            <div class="subsettings">
-                <div class="ruleSetPair">
-                    <div class="ruleSet">
-                        <label for="newRejectUser" class="rejectMessage">Hide posts from:</label>
-                        <br />
-                        <input type="text" id="newRejectUser" size="20" placeholder="user" />
-                        <input type="button" id="addRejectUser" value="+" />
-                        <input type="button" id="delRejectUser" value="-" />
-                        <br />
-                        <select id="rejectUsers" class="ruleList" size="10" multiple="multiple"></select>
-                    </div>
+    <div id="content-dashboard-tweaks" class="tab-content">
+      <div class="checkbox-field-container">
+        <input type="checkbox" id="expandTagList" />
+        <label for="expandTagList">Expand tag lists on dashboard posts</label>
+      </div>
+      <div class="checkbox-field-container">
+        <input type="checkbox" id="warnIfLosingPlace" />
+        <label for="warnIfLosingPlace">Warn me if I am about to lose my place on the dashboard</label>
+      </div>
+    </div>
 
-                    <div class="ruleSet">
-                        <label for="newAcceptTag" class="acceptMessage">Except when tagged:</label>
-                        <br />
-                        <input type="text" id="newAcceptTag" size="20" placeholder="tag" />
-                        <input type="button" id="addAcceptTag" value="+" />
-                        <input type="button" id="delAcceptTag" value="-" />
-                        <br />
-                        <select id="acceptTags" class="ruleList" size="10" multiple="multiple"></select>
-                    </div>
-                </div>
+    <div id="content-old-filters" class="tab-content">
+      <div class="checkbox-field-container">
+        <input type="checkbox" id="filterDashboard" />
+        <label for="filterDashboard">Hide posts on my dashboard based on user or tag.</label>
 
-                <div class="ruleSetPair">
-                    <div class="ruleSet">
-                        <label for="newRejectTag" class="rejectMessage">Hide posts tagged:</label>
-                        <br />
-                        <input type="text" id="newRejectTag" size="20" placeholder="tag" />
-                        <input type="button" id="addRejectTag" value="+" />
-                        <input type="button" id="delRejectTag" value="-" />
-                        <br />
-                        <select id="rejectTags" class="ruleList" size="10" multiple="multiple"></select>
-                    </div>
+        <div class="subsettings rule-set-pair">
+          <div class="rule-set">
+            <label for="newRejectUser" class="reject-message">Hide posts from:</label>
+            <br />
+            <input type="text" id="newRejectUser" size="20" placeholder="user" />
+            <input type="button" id="addRejectUser" value="+" />
+            <input type="button" id="delRejectUser" value="-" />
+            <br />
+            <select id="rejectUsers" class="rule-list" size="10" multiple="multiple"></select>
+          </div>
 
-                    <div class="ruleSet">
-                        <label for="newAcceptUser" class="acceptMessage">Except when from:</label>
-                        <br />
-                        <input type="text" id="newAcceptUser" size="20" placeholder="user" />
-                        <input type="button" id="addAcceptUser" value="+" />
-                        <input type="button" id="delAcceptUser" value="-" />
-                        <br />
-                        <select id="acceptUsers" class="ruleList" size="10" multiple="multiple"></select>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-
-        <button id="btnSave">Save Options</button>
-
-        <div id="loadingMessage" class="blockMessage">
-            <h2>Loading options...</h2>
+          <div class="rule-set">
+            <label for="newAcceptTag" class="accept-message">Except when tagged:</label>
+            <br />
+            <input type="text" id="newAcceptTag" size="20" placeholder="tag" />
+            <input type="button" id="addAcceptTag" value="+" />
+            <input type="button" id="delAcceptTag" value="-" />
+            <br />
+            <select id="acceptTags" class="rule-list" size="10" multiple="multiple"></select>
+          </div>
         </div>
 
-        <div id="savingMessage" class="blockMessage">
-            <h2>Saving options...</h2>
-        </div>
+        <div class="subsettings rule-set-pair">
+          <div class="rule-set">
+            <label for="newRejectTag" class="reject-message">Hide posts tagged:</label>
+            <br />
+            <input type="text" id="newRejectTag" size="20" placeholder="tag" />
+            <input type="button" id="addRejectTag" value="+" />
+            <input type="button" id="delRejectTag" value="-" />
+            <br />
+            <select id="rejectTags" class="rule-list" size="10" multiple="multiple"></select>
+          </div>
 
-        <script src="js/lib/jquery-1.7.2.min.js"></script>
-        <script src="js/lib/jquery.blockUI.js"></script>
-        <script src="js/Somrsault/Core.js"></script>
-        <script src="js/Somrsault/Storage_Direct.js"></script>
-        <script src="js/Somrsault/Options.js"></script>
-        <script src="js/Somrsault/FilterBuilder.js"></script>
-        <script src="js/options.js"></script>
-    </body>
+          <div class="rule-set">
+            <label for="newAcceptUser" class="accept-message">Except when from:</label>
+            <br />
+            <input type="text" id="newAcceptUser" size="20" placeholder="user" />
+            <input type="button" id="addAcceptUser" value="+" />
+            <input type="button" id="delAcceptUser" value="-" />
+            <br />
+            <select id="acceptUsers" class="rule-list" size="10" multiple="multiple"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="loadingMessage" class="block-message">
+      <h2>Loading options...</h2>
+    </div>
+
+    <div id="savingMessage" class="block-message">
+      <h2>Saving options...</h2>
+    </div>
+
+    <script src="js/lib/jquery-1.7.2.min.js"></script>
+    <script src="js/lib/jquery.blockUI.js"></script>
+    <script src="js/Somrsault/Core.js"></script>
+    <script src="js/Somrsault/Storage_Direct.js"></script>
+    <script src="js/Somrsault/Options.js"></script>
+    <script src="js/Somrsault/FilterBuilder.js"></script>
+    <script src="js/options.js"></script>
+  </body>
 </html>

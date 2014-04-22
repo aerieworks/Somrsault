@@ -1,5 +1,9 @@
 'use strict';
 $(function () {
+  var DEFAULT_TAB = 'dashboard-tweaks';
+  var TAB_BUTTON_PREFIX = '#button-';
+  var TAB_CONTENT_PREFIX = '#content-';
+
   var options;
   var rejectUsersBuilder;
   var acceptTagsBuilder;
@@ -69,7 +73,21 @@ $(function () {
     acceptUsersBuilder.setRules(options.acceptUsers);
   }
 
-  $.blockUI({ message: $('#loadingMessage') });
+  function selectTab() {
+    var tabName = window.location.hash.substr(1);
+    if (tabName.length == 0) {
+      tabName = DEFAULT_TAB;
+    }
+
+    $('.selected').removeClass('selected');
+    $(TAB_BUTTON_PREFIX + tabName).addClass('selected');
+    $(TAB_CONTENT_PREFIX + tabName).addClass('selected');
+  }
+
+  $(window).bind('hashchange', selectTab);
+  selectTab();
+  $(window.document.body).focus();
+
   rejectUsersBuilder = new Somrsault.FilterBuilder($('#newRejectUser'), $('#addRejectUser'), $('#delRejectUser'), $('#rejectUsers'));
   acceptTagsBuilder = new Somrsault.FilterBuilder($('#newAcceptTag'), $('#addAcceptTag'), $('#delAcceptTag'), $('#acceptTags'));
   rejectTagsBuilder = new Somrsault.FilterBuilder($('#newRejectTag'), $('#addRejectTag'), $('#delRejectTag'), $('#rejectTags'));
@@ -78,6 +96,6 @@ $(function () {
   options.load(function () {
     resetOptions();
     $('#btnSave').click(saveOptions);
-    $.unblockUI();
+    $('#btnReset').click(resetOptions);
   });
 });

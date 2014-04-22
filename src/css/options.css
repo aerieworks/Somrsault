@@ -1,45 +1,87 @@
 html {
-    font-family: verdana;
+  font-family: verdana;
 }
 
-fieldset {
-    margin: 12px;
-    width: 600px;
+body {
+  width: 500px;
+  font-size: 16px;
 }
 
-legend {
-    padding: 0 12px;
+.actions {
+  margin-bottom: 10px;
+  text-align: center;
 }
 
-.blockMessage {
-    display: none;
+.action {
+  border: 1px solid #000000;
+  font-size: 20px;
+}
+
+.primary-action {
+  background-color: #00cc00;
+}
+
+.tab-buttons {
+  z-index: 1;
+}
+
+.tab-button {
+  display: inline-block;
+  border: solid 1px #000000;
+  border-bottom: none;
+}
+
+.tab-button-content {
+  display: inline-block;
+  border-bottom: solid 1px transparent;
+  padding: 10px;
+}
+
+.tab-button.selected > .tab-button-content {
+  border-bottom-color: #ffffff;
+}
+
+.tab-content {
+  display: none;
+  margin-top: -1px;
+  border: solid 1px #000000;
+  padding: 10px;
+}
+
+.tab-content.selected {
+  display: block;
 }
 
 .disabled {
-    opacity: 0.3;
+  opacity: 0.3;
 }
 
-.subsettings {
-    margin-left: 22px;
+.checkbox-field-container {
+  padding-left: 22px;
 }
 
-.ruleSetPair {
-    clear: both;
+.checkbox-field-container > input[type=checkbox] {
+  margin-left: -22px;
 }
 
-.ruleSet {
-    float: left;
-    margin: 0 20px 20px 0;
+.rule-set {
+  display: inline-block;
+  margin: 0 20px 20px 0;
 }
 
-.acceptMessage {
-    color: #00a000;
+.accept-message {
+  color: #00a000;
 }
 
-.rejectMessage {
-    color: #a00000;
+.reject-message {
+  color: #a00000;
 }
 
-.ruleList {
-    width: 195px;
+.rule-list {
+  width: 195px;
 }
+
+.block-message {
+  display: none;
+}
+
