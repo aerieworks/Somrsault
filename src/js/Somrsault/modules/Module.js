@@ -43,14 +43,17 @@ window.Somrsault.Module = (function ($) {
       this.optionsPage = optionsPage;
 
       var me = this;
-      Object.getOwnPropertyNames(this.options).forEach(function (optionName) {
-        var option = me.options[optionName];
+      this.options.forEach(function (option) {
+        var serializer;
         if (option.hasOwnProperty('serializer')) {
-          me.serializers.push(new option.serializer(option));
+          serializer = option.serializer;
+        } else {
+          serializer = Somrsault.DefaultSerializer;
         }
+        me.serializers.push(new serializer(option));
 
         if (option.hasOwnProperty('defaultValue')) {
-          options[optionName] = option.defaultValue;
+          options[option.name] = option.defaultValue;
         }
       });
 

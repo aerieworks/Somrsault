@@ -6,53 +6,8 @@ $(function () {
   var modules = window.Somrsault.Module.getModules();
   var options = new Somrsault.Options();
 
-  function getField(optName) {
-    return $('#' + optName);
-  }
-
-  function getBoolean(option) {
-    if (typeof option == 'string') {
-      option = getField(option);
-    }
-    return !!(option.attr('checked'));
-  }
-
-  function setBoolean(optName, value, hasSubsettings) {
-    var field = getField(optName);
-    setBooleanAttribute(field, 'checked', value);
-
-    if (hasSubsettings) {
-      updateSubsettings(field);
-    }
-  }
-
-  function setBooleanAttribute(nodes, property, value) {
-    if (value) {
-      nodes.attr(property, property);
-    } else {
-      nodes.removeAttr(property);
-    }
-  }
-
-  function updateSubsettings(field) {
-    /*
-    var subsettings = field.siblings('.subsettings');
-    if (subsettings.length > 0) {
-      var value = getBoolean(field);
-      subsettings.toggleClass('disabled', !value);
-
-      var subfields = subsettings.find('input').add(subsettings.find('select'));
-      setBooleanAttribute(subfields, 'disabled', !value);
-    }
-    */
-  }
-
-
   function saveOptions() {
     $.blockUI({ message: $('#savingMessage') });
-    $('.option').each(function (index, el) {
-      options[el.id] = !!el.checked;
-    });
     modules.forEach(function (module) {
       module.save(options);
     });
@@ -60,16 +15,6 @@ $(function () {
   }
 
   function resetOptions(isInitializing) {
-    $('.option').each(function (index, el) {
-      $(el).attr('checked', !!options[el.id]);
-    });
-    $('.option-parent').each(function (index, el) {
-      updateSubsettings($(el));
-      if (isInitializing) {
-        el.click(function () { updateSubsettings(el); });
-      }
-    });
-
     modules.forEach(function (module) {
       module.load(options);
     });
@@ -103,7 +48,6 @@ $(function () {
 
   $(window).bind('hashchange', selectTab);
   selectTab();
-  $(window.document.body).focus();
 
   options.load(function () {
     resetOptions(true);

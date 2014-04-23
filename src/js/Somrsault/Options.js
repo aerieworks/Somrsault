@@ -3,11 +3,6 @@ window.Somrsault.Options = (function () {
   var OPTIONS_KEY = 'Somrsault.Options.options';
 
   var defaults = {
-    filterDashboard: true,
-    rejectTags: [],
-    acceptUsers: [],
-    rejectUsers: [],
-    acceptTags: []
   };
 
   function Options() {
