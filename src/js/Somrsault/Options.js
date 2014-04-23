@@ -3,8 +3,6 @@ window.Somrsault.Options = (function () {
   var OPTIONS_KEY = 'Somrsault.Options.options';
 
   var defaults = {
-    expandTagList: true,
-    warnIfLosingPlace: true,
     filterDashboard: true,
     rejectTags: [],
     acceptUsers: [],

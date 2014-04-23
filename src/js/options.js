@@ -1,14 +1,10 @@
 'use strict';
 $(function () {
-  var DEFAULT_TAB = 'dashboard-tweaks';
-  var TAB_BUTTON_PREFIX = '#button-';
-  var TAB_CONTENT_PREFIX = '#content-';
+  var TAB_BUTTON_PREFIX = 'button-';
+  var TAB_PAGE_PREFIX = 'page-';
 
-  var options;
-  var rejectUsersBuilder;
-  var acceptTagsBuilder;
-  var rejectTagsBuilder;
-  var acceptUsersBuilder;
+  var modules = window.Somrsault.Module.getModules();
+  var options = new Somrsault.Options();
 
   function getField(optName) {
     return $('#' + optName);
@@ -27,7 +23,6 @@ $(function () {
 
     if (hasSubsettings) {
       updateSubsettings(field);
-      field.click(function () { updateSubsettings(field); });
     }
   }
 
@@ -40,6 +35,7 @@ $(function () {
   }
 
   function updateSubsettings(field) {
+    /*
     var subsettings = field.siblings('.subsettings');
     if (subsettings.length > 0) {
       var value = getBoolean(field);
@@ -48,53 +44,69 @@ $(function () {
       var subfields = subsettings.find('input').add(subsettings.find('select'));
       setBooleanAttribute(subfields, 'disabled', !value);
     }
+    */
   }
 
 
   function saveOptions() {
     $.blockUI({ message: $('#savingMessage') });
-    options.expandTagList = getBoolean('expandTagList');
-    options.warnIfLosingPlace = getBoolean('warnIfLosingPlace');
-    options.filterDashboard = getBoolean('filterDashboard');
-    options.rejectUsers = rejectUsersBuilder.getRules();
-    options.acceptTags = acceptTagsBuilder.getRules();
-    options.rejectTags = rejectTagsBuilder.getRules();
-    options.acceptUsers = acceptUsersBuilder.getRules();
+    $('.option').each(function (index, el) {
+      options[el.id] = !!el.checked;
+    });
+    modules.forEach(function (module) {
+      module.save(options);
+    });
     options.save($.unblockUI);
   }
 
-  function resetOptions() {
-    setBoolean('expandTagList', options.expandTagList);
-    setBoolean('warnIfLosingPlace', options.warnIfLosingPlace, true);
-    setBoolean('filterDashboard', options.filterDashboard, true);
-    rejectUsersBuilder.setRules(options.rejectUsers);
-    acceptTagsBuilder.setRules(options.acceptTags);
-    rejectTagsBuilder.setRules(options.rejectTags);
-    acceptUsersBuilder.setRules(options.acceptUsers);
+  function resetOptions(isInitializing) {
+    $('.option').each(function (index, el) {
+      $(el).attr('checked', !!options[el.id]);
+    });
+    $('.option-parent').each(function (index, el) {
+      updateSubsettings($(el));
+      if (isInitializing) {
+        el.click(function () { updateSubsettings(el); });
+      }
+    });
+
+    modules.forEach(function (module) {
+      module.load(options);
+    });
   }
 
   function selectTab() {
     var tabName = window.location.hash.substr(1);
     if (tabName.length == 0) {
-      tabName = DEFAULT_TAB;
+      tabName = modules[0].id;
     }
 
     $('.selected').removeClass('selected');
-    $(TAB_BUTTON_PREFIX + tabName).addClass('selected');
-    $(TAB_CONTENT_PREFIX + tabName).addClass('selected');
+    $('#' + TAB_BUTTON_PREFIX + tabName).addClass('selected');
+    $('#' + TAB_PAGE_PREFIX + tabName).addClass('selected');
   }
+
+  var tabButtonContainer = $('.tab-buttons');
+  modules.forEach(function (module) {
+    var button = $('<a class="tab-button"><span class="tab-button-content"></span></a>');
+    button.attr('id', TAB_BUTTON_PREFIX + module.id);
+    button.attr('href', '#' + module.id);
+    button.children('.tab-button-content').text(module.name);
+    tabButtonContainer.append(button);
+
+    var page = $('<div class="tab-page"></div>')
+      .attr('id', TAB_PAGE_PREFIX + module.id)
+      .append(module.optionsPageContent);
+    tabButtonContainer.after(page);
+    module.bind(page, options);
+  });
 
   $(window).bind('hashchange', selectTab);
   selectTab();
   $(window.document.body).focus();
 
-  rejectUsersBuilder = new Somrsault.FilterBuilder($('#newRejectUser'), $('#addRejectUser'), $('#delRejectUser'), $('#rejectUsers'));
-  acceptTagsBuilder = new Somrsault.FilterBuilder($('#newAcceptTag'), $('#addAcceptTag'), $('#delAcceptTag'), $('#acceptTags'));
-  rejectTagsBuilder = new Somrsault.FilterBuilder($('#newRejectTag'), $('#addRejectTag'), $('#delRejectTag'), $('#rejectTags'));
-  acceptUsersBuilder = new Somrsault.FilterBuilder($('#newAcceptUser'), $('#addAcceptUser'), $('#delAcceptUser'), $('#acceptUsers'));
-  options = new Somrsault.Options();
   options.load(function () {
-    resetOptions();
+    resetOptions(true);
     $('#btnSave').click(saveOptions);
     $('#btnReset').click(resetOptions);
   });

@@ -41,14 +41,14 @@ body {
   border-bottom-color: #ffffff;
 }
 
-.tab-content {
+.tab-page {
   display: none;
   margin-top: -1px;
   border: solid 1px #000000;
   padding: 10px;
 }
 
-.tab-content.selected {
+.tab-page.selected {
   display: block;
 }
 

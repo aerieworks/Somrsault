@@ -10,7 +10,7 @@ window.Somrsault.FilterBuilder = (function () {
     this.ruleList.append($('<option />').val(rule).text(rule));
   }
 
-  function delectSelectedRules(ev) {
+  function deleteSelectedRules(ev) {
     var selected = $(this.ruleList[0].selectedOptions);
     selected.remove();
     this.delRule.disable();
@@ -36,23 +36,32 @@ window.Somrsault.FilterBuilder = (function () {
     }
   }
 
-  function FilterBuilder(newRule, addRule, delRule, ruleList) {
-    this.newRule = newRule;
-    this.addRule = addRule;
-    this.delRule = delRule;
-    this.ruleList = ruleList;
+  function FilterBuilder(option) {
+    this.option = option;
 
-    addRule.disable();
-    delRule.disable();
+    var prefix = option.name;
+    var node = option.optionsPage;
+    this.newRule = $('#' + prefix + '-new', node);
+    this.addRule = $('#' + prefix + '-add', node);
+    this.delRule = $('#' + prefix + '-del', node);
+    this.newRule = $('#' + prefix + '-new', node);
+    this.ruleList = $('#' + prefix + '-list', node);
 
-    addRule.click(addNewRule.bind(this));
-    delRule.click(delectSelectedRules.bind(this));
-    newRule.keyup(newRule_onKeyUp.bind(this));
-    ruleList.change(ruleList_onChange.bind(this));
+    this.addRule.disable();
+    this.delRule.disable();
+
+    this.addRule.click(addNewRule.bind(this));
+    this.delRule.click(deleteSelectedRules.bind(this));
+    this.newRule.keyup(newRule_onKeyUp.bind(this));
+    this.ruleList.change(ruleList_onChange.bind(this));
   }
 
   FilterBuilder.prototype = {
-    getRules: function() {
+    getOption: function getOption() {
+      return this.option;
+    },
+
+    get: function get() {
       var rules = [];
       this.ruleList.children().each(function () {
         rules.push(this.value);
@@ -60,7 +69,7 @@ window.Somrsault.FilterBuilder = (function () {
       return rules;
     },
 
-    setRules: function (rules) {
+    set: function set(rules) {
       this.delRule.disable();
       this.ruleList.empty();
 
