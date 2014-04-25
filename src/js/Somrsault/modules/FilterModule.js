@@ -1,42 +1,47 @@
 'use strict';
 (function () {
-
-  function setFilterEnabledStatus() {
-    var filterDashboard = $('#filterDashboard');
-    var value = !!filterDashboard.attr('checked');
-
-    var subsettings = filterDashboard.siblings('.subsettings');
-    subsettings.toggleClass('disabled', !value);
-
-    var subfields = subsettings.find('input').add(subsettings.find('select'));
-    subfields.attr('disabled', !value);
-  }
-
-  window.Somrsault.Module.register({
+  window.Somrsault.modules.Module.register({
     name: 'Filters',
     options: [
-      { name: 'filterDashboard', defaultValue: true },
       {
-        name: 'rejectTags',
-        defaultValue: [],
-        serializer: Somrsault.FilterBuilder
+        id: 'filterDashboard',
+        type: Boolean,
+        defaultValue: true,
+        label: 'Hide posts on my dashboard based on user or tag.'
       },
       {
-        name: 'acceptUsers',
+        id: 'rejectUsers',
+        type: String,
+        list: true,
         defaultValue: [],
-        serializer: Somrsault.FilterBuilder
+        requires: 'filterDashboard',
+        label: 'Hide posts from:'
       },
       {
-        name: 'rejectUsers',
+        id: 'acceptTags',
+        type: String,
+        list: true,
         defaultValue: [],
-        serializer: Somrsault.FilterBuilder
+        requires: 'filterDashboard',
+        label: 'Except when tagged:'
       },
       {
-        name: 'acceptTags',
+        id: 'rejectTags',
+        type: String,
+        list: true,
         defaultValue: [],
-        serializer: Somrsault.FilterBuilder
+        requires: 'filterDashboard',
+        label: 'Hide posts tagged:'
+      },
+      {
+        id: 'acceptUsers',
+        type: String,
+        list: true,
+        defaultValue: [],
+        requires: 'filterDashboard',
+        label: 'Except when from:'
       }
-    ],
+    ]/*,
     onBind: function FilterModule_onBind(optionsPage) {
       $('#filterDashboard').click(function (ev) {
         setFilterEnabledStatus();
@@ -48,7 +53,7 @@
     optionsPageContent:
 '<div class="checkbox-field-container">' +
 '  <input type="checkbox" id="filterDashboard" class="option" />' +
-'  <label for="filterDashboard">Hide posts on my dashboard based on user or tag.</label>' +
+'  <label for="filterDashboard"></label>' +
 '' +
 '  <div class="subsettings rule-set-pair">' +
 '    <div class="rule-set">' +
@@ -94,6 +99,7 @@
 '    </div>' +
 '  </div>' +
 '</div>'
+*/
   });
 })();
 

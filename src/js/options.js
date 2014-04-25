@@ -1,22 +1,41 @@
 'use strict';
-$(function () {
+jQuery(function ($) {
+  var O = Somrsault.options;
   var TAB_BUTTON_PREFIX = 'button-';
   var TAB_PAGE_PREFIX = 'page-';
 
-  var modules = window.Somrsault.Module.getModules();
-  var options = new Somrsault.Options();
+  var modules = window.Somrsault.modules.Module.getModules();
+  var options = null;
+  var editors = [];
+  var listeners = {};
+  var view = {
+    listenForChange: function listenForChange(optionId, callback) {
+      if (!listeners.hasOwnProperty(optionId)) {
+        listeners[optionId] = $.Callbacks();
+      }
+
+      listeners[optionId].add(callback);
+    }
+  };
+
+  function editor_onChange(editor, value) {
+    var optionId = editor.option.id;
+    if (listeners.hasOwnProperty(optionId)) {
+      listeners[optionId].fire(optionId, value);
+    }
+  }
 
   function saveOptions() {
     $.blockUI({ message: $('#savingMessage') });
-    modules.forEach(function (module) {
-      module.save(options);
+    editors.forEach(function (editor) {
+      editor.save(options);
     });
-    options.save($.unblockUI);
+    O.Options.save(modules, options, $.unblockUI);
   }
 
-  function resetOptions(isInitializing) {
-    modules.forEach(function (module) {
-      module.load(options);
+  function resetOptions() {
+    editors.forEach(function (editor) {
+      editor.load(options);
     });
   }
 
@@ -33,24 +52,29 @@ $(function () {
 
   var tabButtonContainer = $('.tab-buttons');
   modules.forEach(function (module) {
-    var button = $('<a class="tab-button"><span class="tab-button-content"></span></a>');
-    button.attr('id', TAB_BUTTON_PREFIX + module.id);
-    button.attr('href', '#' + module.id);
-    button.children('.tab-button-content').text(module.name);
+    var button = $('<a class="tab-button"><span class="tab-button-content"></span></a>')
+      .attr('id', TAB_BUTTON_PREFIX + module.id)
+      .attr('href', '#' + module.id);
+    button.children('.tab-button-content')
+      .text(module.name);
     tabButtonContainer.append(button);
 
     var page = $('<div class="tab-page"></div>')
-      .attr('id', TAB_PAGE_PREFIX + module.id)
-      .append(module.optionsPageContent);
+      .attr('id', TAB_PAGE_PREFIX + module.id);
+    module.options.forEach(function (option) {
+      var editor = O.ui.Editor.instantiateEditor(option, page, view);
+      editor.onChange.add(editor_onChange);
+      editors.push(editor);
+    });
     tabButtonContainer.after(page);
-    module.bind(page, options);
   });
 
   $(window).bind('hashchange', selectTab);
   selectTab();
 
-  options.load(function () {
-    resetOptions(true);
+  O.Options.load(modules, function (deserialized) {
+    options = deserialized;
+    resetOptions();
     $('#btnSave').click(saveOptions);
     $('#btnReset').click(resetOptions);
   });
