@@ -6,25 +6,35 @@
   display: none;
 }
 
-.somr-filter-notice {
+.somr-placeholder {
   opacity: 0.5;
 }
 
-.somr-filter-notice:hover {
+.somr-placeholder:hover {
   opacity: 1;
 }
 
-.somr-show-post {
+.somr-placeholder-reason {
+  display: none;
+}
+
+.somr-action {
   display: inline-block;
-  margin-left: 10px;
+  margin-right: 10px;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.somr-unfiltered > .post {
-  display: block;
+.somr-show-reason .somr-placeholder-reason {
+  display: inline;
+}
+.somr-show-reason .somr-action-show-reason {
+  display: none;
 }
 
-.somr-unfiltered > .somr-filter-notice {
+.somr-show-post > .post {
+  display: block;
+}
+.somr-show-post > .somr-placeholder {
   display: none;
 }

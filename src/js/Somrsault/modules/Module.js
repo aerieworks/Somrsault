@@ -9,6 +9,7 @@ window.Somrsault.modules.Module = (function ($) {
     name: null,
     id: null,
     onPageLoad: $.noop,
+    onExecute: $.noop,
     options: []
   };
 
@@ -31,6 +32,9 @@ window.Somrsault.modules.Module = (function ($) {
   Module.prototype = {
     initialize: function initialize(page, options) {
       this.onPageLoad.call(this, page, options);
+    },
+    execute: function execute(page, options) {
+      this.onExecute.call(this, page, options);
     }
   };
 

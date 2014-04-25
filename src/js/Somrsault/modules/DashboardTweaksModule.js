@@ -16,7 +16,7 @@
     };
   }
 
-  function onPageLoad(page, options) {
+  function onExecute(page, options) {
     if (options.expandTagList) {
       Somrsault.util.log('Expanding tags.');
       page.postContainer.addClass('somr-expand-tags');
@@ -34,7 +34,7 @@
 
   window.Somrsault.modules.Module.register({
     name: 'Dashboard Tweaks',
-    onPageLoad: onPageLoad,
+    onExecute: onExecute,
     options: [
       {
         id: 'expandTagList',

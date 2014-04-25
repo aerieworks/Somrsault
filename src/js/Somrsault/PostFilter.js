@@ -93,43 +93,27 @@ window.Somrsault.PostFilter = (function () {
       var filteredUsers = findMatches(postUsers, me.rejectUsers);
       var filteredTags = findMatches(postTags, me.rejectTags);
       if ((filteredUsers.length > 0 && !isPostTagged(postTags, me.acceptTags)) || (filteredTags.length > 0 && !isPostBy(postUsers, me.acceptUsers))) {
-        var reasonParts = [];
+        var reasons = [];
         if (filteredUsers.length > 0) {
-          reasonParts.push('from ' + filteredUsers.join(', '));
+          reasons.push({ type: 'user', matches: filteredUsers });
         }
         if (filteredTags.length > 0) {
-          reasonParts.push('tagged ' + filteredTags.join(', '));
+          reasons.push({ type: 'tag', matches: filteredTags });
         }
-        rejectPost(post, reasonParts.join(' and '));
+        rejectPost(me, post, reasons);
       }
     }
   }
 
-  function rejectPost(post, reason) {
+  function rejectPost(me, post, reasons) {
     Somrsault.util.log('Hiding post ' + post.attr('id'));
-
-    var filterNotice = $('<div class="somr-filter-notice post_full clearfix"></div>')
-      .append($('<div class="post_header">somrsault</div>'))
-      .append($('<div class="post_content clearfix"></div>')
-        .append($('<div class="post_body clearfix"></div>')
-          .append($('<p></p>')
-            .text('Hiding a post ' + reason + '.')
-            .append('<span class="somr-show-post">Show</span>')
-          )
-        )
-      );
-
-    post.closest('.post_container')
-      .addClass('somr-filtered')
-      .append(filterNotice);
+    post.closest('.post_container').addClass('somr-filtered');
+    me.page.onFilter.fire(me.page, post, reasons);
   }
 
-  function showFilteredPost(postContainer) {
-    postContainer.addClass('somr-unfiltered');
-  }
-
-  function PostFilter(options, postContainer) {
+  function PostFilter(page, options) {
     var me = this;
+    this.page = page;
     this.lastPost = null;
     Somrsault.util.debug('Building rejected users map...');
     this.rejectUsers = buildRuleMap(options.rejectUsers);
@@ -140,23 +124,17 @@ window.Somrsault.PostFilter = (function () {
     Somrsault.util.debug('Building accepted users map...');
     this.acceptUsers = buildRuleMap(options.acceptUsers);
 
-    filterPosts(this, postContainer.children('.post_container').not('#new_post_buttons').children('.post'));
-
-    // When the user chooses to show a filtered post...
-    postContainer.on('click', '.somr-show-post', function (ev) {
-      ev.preventDefault();
-      ev.stopImmediatePropagation();
-      ev.stopPropagation();
-      showFilteredPost($(ev.target).closest('.post_container'));
-    });
+    filterPosts(this, page.postContainer.children('.post_container').not('#new_post_buttons').children('.post'));
 
     // When the post container is modified, look for new posts and filter them.
-    postContainer.bind('DOMSubtreeModified', function (ev) {
-      Somrsault.util.debug('Post container modified.');
-      if (me.lastPost != null) {
-        Somrsault.util.log('Filtering newly loaded posts...');
-        filterPosts(me, me.lastPost.closest('.post_container').nextAll('.post_container').children('.post'));
-      }
+    page.postContainer.bind('DOMSubtreeModified', function (ev) {
+      setTimeout(function () {
+        Somrsault.util.debug('Post container modified.');
+        if (me.lastPost != null) {
+          Somrsault.util.debug('Filtering newly loaded posts after ' + me.lastPost.attr('id'));
+          filterPosts(me, me.lastPost.closest('.post_container').nextAll('.post_container').children('.post'));
+        }
+      }, 1);
     });
   }
 

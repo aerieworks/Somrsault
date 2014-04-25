@@ -8,7 +8,7 @@
     },
 
     log: function (message) {
-      console.log('Somrsault: ' + message);
+      console.log('Somrsault: [' + Date.now() + '] ' + message);
     },
 
     safeInvoke: function (method, args) {

@@ -15,6 +15,7 @@
       "js/Somrsault/modules/Module.js",
       "js/Somrsault/modules/DashboardTweaksModule.js",
       "js/Somrsault/modules/FilterModule.js",
+      "js/Somrsault/modules/PlaceholderModule.js",
       "js/background.js"
     ]
   },
@@ -43,6 +44,7 @@
         "js/Somrsault/modules/Module.js",
         "js/Somrsault/modules/DashboardTweaksModule.js",
         "js/Somrsault/modules/FilterModule.js",
+        "js/Somrsault/modules/PlaceholderModule.js",
         "js/Somrsault/PostFilter.js",
         "js/page.js"
       ]
