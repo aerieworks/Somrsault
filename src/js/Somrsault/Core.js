@@ -3,6 +3,10 @@
   window.Somrsault = {};
 
   window.Somrsault.util = {
+    debug: function (message) {
+      Somrsault.util.log('[DEBUG] ' + message);
+    },
+
     log: function (message) {
       console.log('Somrsault: ' + message);
     },

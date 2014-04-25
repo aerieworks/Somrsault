@@ -10,7 +10,11 @@
       "js/lib/jquery-1.7.2.min.js",
       "js/Somrsault/Core.js",
       "js/Somrsault/Storage_Direct.js",
-      "js/Somrsault/Options.js",
+      "js/Somrsault/options/Options.js",
+      "js/Somrsault/options/Option.js",
+      "js/Somrsault/modules/Module.js",
+      "js/Somrsault/modules/DashboardTweaksModule.js",
+      "js/Somrsault/modules/FilterModule.js",
       "js/background.js"
     ]
   },
@@ -34,7 +38,11 @@
         "js/lib/jquery-1.7.2.min.js",
         "js/Somrsault/Core.js",
         "js/Somrsault/Storage_Message.js",
-        "js/Somrsault/Options.js",
+        "js/Somrsault/options/Options.js",
+        "js/Somrsault/options/Option.js",
+        "js/Somrsault/modules/Module.js",
+        "js/Somrsault/modules/DashboardTweaksModule.js",
+        "js/Somrsault/modules/FilterModule.js",
         "js/Somrsault/PostFilter.js",
         "js/page.js"
       ]

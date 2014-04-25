@@ -11,7 +11,7 @@ window.Somrsault.PostFilter = (function () {
       if (typeof prefix == 'string') {
         key = prefix + key;
       }
-      Somrsault.util.log('buildRuleMap: key: "' + key + '"');
+      Somrsault.util.debug('buildRuleMap: key: "' + key + '"');
       map[key] = true;
     }
 
@@ -86,7 +86,7 @@ window.Somrsault.PostFilter = (function () {
       } else {
         lastUser = postUsers[0];
       }
-      Somrsault.util.log('Examining post by "' + postUsers.join(', ') + '"...');
+      Somrsault.util.debug('Examining post by "' + postUsers.join(', ') + '"...');
 
       postTags = getPostTags(post);
 
@@ -102,7 +102,6 @@ window.Somrsault.PostFilter = (function () {
         }
         rejectPost(post, reasonParts.join(' and '));
       }
-
     }
   }
 
@@ -132,13 +131,13 @@ window.Somrsault.PostFilter = (function () {
   function PostFilter(options, postContainer) {
     var me = this;
     this.lastPost = null;
-    Somrsault.util.log('Building rejected users map...');
+    Somrsault.util.debug('Building rejected users map...');
     this.rejectUsers = buildRuleMap(options.rejectUsers);
-    Somrsault.util.log('Building accepted tags map...');
+    Somrsault.util.debug('Building accepted tags map...');
     this.acceptTags = buildRuleMap(options.acceptTags, '#');
-    Somrsault.util.log('Building rejected tags map...');
+    Somrsault.util.debug('Building rejected tags map...');
     this.rejectTags = buildRuleMap(options.rejectTags, '#');
-    Somrsault.util.log('Building accepted users map...');
+    Somrsault.util.debug('Building accepted users map...');
     this.acceptUsers = buildRuleMap(options.acceptUsers);
 
     filterPosts(this, postContainer.children('.post_container').not('#new_post_buttons').children('.post'));
@@ -153,7 +152,7 @@ window.Somrsault.PostFilter = (function () {
 
     // When the post container is modified, look for new posts and filter them.
     postContainer.bind('DOMSubtreeModified', function (ev) {
-      Somrsault.util.log('Post container modified.');
+      Somrsault.util.debug('Post container modified.');
       if (me.lastPost != null) {
         Somrsault.util.log('Filtering newly loaded posts...');
         filterPosts(me, me.lastPost.closest('.post_container').nextAll('.post_container').children('.post'));

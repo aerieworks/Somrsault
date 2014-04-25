@@ -75,11 +75,13 @@ body {
   display: block;
 }
 
-.accept-message {
+.editor-Filters-acceptUsers-label,
+.editor-Filters-acceptTags-label {
   color: #00a000;
 }
 
-.reject-message {
+.editor-Filters-rejectUsers-label,
+.editor-Filters-rejectTags-label {
   color: #a00000;
 }
 

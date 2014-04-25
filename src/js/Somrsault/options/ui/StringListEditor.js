@@ -43,14 +43,15 @@ window.Somrsault.options.ui.StringListEditor = (function (E) {
 
   StringListEditor.prototype = $.extend(Object.create(E.prototype), {
     render: function render(container) {
-      var newItemId = E.makeEditorId(this.option) + '-new';
-      this.newItem = $('<input type="text" class="option" size="20" />').attr('id', newItemId);
-      this.addItem = $('<input type="button" value="+" disabled="disabled" />');
-      this.delItem = $('<input type="button" value="-" disabled="disabled" />');
-      this.itemList = $('<select class="string-list-editor-field" size="10" multiple="multiple"></select>');
+      var idBase = E.makeEditorId(this.option);
+      var newItemId = idBase + '-new';
+      this.newItem = $('<input type="text" class="option" size="20" />').attr('id', newItemId).addClass(idBase + '-new');
+      this.addItem = $('<input type="button" value="+" disabled="disabled" />').addClass(idBase + '-add');
+      this.delItem = $('<input type="button" value="-" disabled="disabled" />').addClass(idBase + '-del');
+      this.itemList = $('<select class="string-list-editor-field" size="10" multiple="multiple"></select>').addClass(idBase + '-list');
 
       container
-        .append($('<label class="string-list-editor-label"></label>').attr('for', newItemId).text(this.option.label))
+        .append($('<label class="string-list-editor-label"></label>').attr('for', newItemId).text(this.option.label).addClass(idBase + '-label'))
         .append(this.newItem)
         .append(this.addItem)
         .append(this.delItem)

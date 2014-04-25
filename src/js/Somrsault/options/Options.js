@@ -17,6 +17,7 @@ window.Somrsault.options.Options = (function () {
     load: function load(modules, onLoad) {
       // Load options from storage.
       Somrsault.Storage.load(OPTIONS_KEY, function (serialized) {
+        Somrsault.util.debug("Loading options: " + JSON.stringify(serialized));
         var options = {};
         crawlOptions(modules, serialized, function (module, optionDef, source) {
           if (!options.hasOwnProperty(module.id)) {
@@ -40,6 +41,7 @@ window.Somrsault.options.Options = (function () {
         serialized[module.id][optionDef.id] = optionDef.serialize(source);
       });
 
+      Somrsault.util.debug("Saving options: " + JSON.stringify(serialized));
       Somrsault.Storage.save(OPTIONS_KEY, serialized, onSave);
     }
   };

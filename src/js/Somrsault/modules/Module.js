@@ -8,6 +8,7 @@ window.Somrsault.modules.Module = (function ($) {
   var defaults = {
     name: null,
     id: null,
+    onPageLoad: $.noop,
     options: []
   };
 
@@ -26,6 +27,12 @@ window.Somrsault.modules.Module = (function ($) {
       return new Somrsault.options.Option(me, optionDef);
     });
   }
+
+  Module.prototype = {
+    initialize: function initialize(page, options) {
+      this.onPageLoad.call(this, page, options);
+    }
+  };
 
   Module.register = function register(config) {
     var module = new Module(config);

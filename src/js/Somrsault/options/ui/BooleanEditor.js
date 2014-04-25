@@ -8,13 +8,18 @@ window.Somrsault.options.ui.BooleanEditor = (function (E) {
   BooleanEditor.prototype = $.extend(Object.create(E.prototype), {
     render: function render(container) {
       var fieldId = E.makeEditorId(this.option);
-      this.field = $('<input type="checkbox" class="option" />').attr('id', fieldId);
+      this.field = $('<input type="checkbox" class="option" />')
+        .attr('id', fieldId)
+        .addClass(fieldId + '-field');
       this.registerChangeTrigger(this.field, 'click');
 
       container
         .append(this.field)
-        .append($('<label></label>').attr('for', fieldId).text(this.option.label));
-
+        .append($('<label></label>')
+          .attr('for', fieldId)
+          .text(this.option.label)
+          .addClass(fieldId + '-label')
+        );
     },
 
     get: function get() {
