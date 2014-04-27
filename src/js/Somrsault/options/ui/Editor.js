@@ -1,6 +1,5 @@
 'use strict';
-window.Somrsault.options.ui = {};
-window.Somrsault.options.ui.Editor = (function () {
+Somrsault.util.define('Somrsault.options.ui.Editor', (function () {
 
   var registeredEditors = {};
 
@@ -89,4 +88,4 @@ window.Somrsault.options.ui.Editor = (function () {
   Editor.makeEditorId = makeEditorId;
   Editor.register = register;
   return Editor;
-})();
+})());

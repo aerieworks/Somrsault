@@ -1,6 +1,5 @@
 'use strict';
-window.Somrsault.options = {};
-window.Somrsault.options.Options = (function () {
+Somrsault.util.define('Somrsault.options.Options', (function () {
   var OPTIONS_KEY = 'Somrsault.Options.options';
 
   function crawlOptions(modules, source, callback) {
@@ -45,4 +44,4 @@ window.Somrsault.options.Options = (function () {
       Somrsault.Storage.save(OPTIONS_KEY, serialized, onSave);
     }
   };
-})();
+})());

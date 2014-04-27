@@ -1,6 +1,5 @@
 'use strict';
-window.Somrsault.FilterRule = (function () {
-
+Somrsault.util.define('Somrsault.filter.FilterRule', (function () {
   var FilterTypes = {
     Tag: { value: 0, verb: 'tagged' },
     Blog: { value: 1, verb: 'from' },
@@ -50,4 +49,4 @@ window.Somrsault.FilterRule = (function () {
 
   FilterRule.FilterTypes = FilterTypes;
   return FilterRule;
-})();
+})());

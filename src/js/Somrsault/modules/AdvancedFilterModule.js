@@ -1,7 +1,17 @@
 'use strict';
 (function () {
+  function onPageLoad(page, options) {
+    //this.filter = new Somrsault.AdvancedPostFilter(options.rules);
+  }
+
+  function onExecute(page, options) {
+
+  }
+
   window.Somrsault.modules.Module.register({
     name: 'New Filters',
+    onPageLoad: onPageLoad,
+    onExecute: onExecute,
     options: [
       {
         id: 'useNewFilters',
@@ -11,7 +21,7 @@
       },
       {
         id: 'rules',
-        type: Somrsault.FilterRule,
+        type: Somrsault.filter.FilterRule,
         list: true,
         defaultValue: [],
         requires: 'useNewFilters',

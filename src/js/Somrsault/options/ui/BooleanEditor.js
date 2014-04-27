@@ -1,6 +1,5 @@
 'use strict';
-window.Somrsault.options.ui.BooleanEditor = (function (E) {
-
+(function (E) {
   function BooleanEditor(option, container, view) {
     E.call(this, option, container, view);
   }
@@ -32,5 +31,4 @@ window.Somrsault.options.ui.BooleanEditor = (function (E) {
   });
 
   E.register(BooleanEditor, Boolean);
-  return BooleanEditor;
 })(Somrsault.options.ui.Editor);

@@ -1,5 +1,5 @@
 'use strict';
-window.Somrsault.options.Option = (function () {
+Somrsault.util.define('Somrsault.options.Option', (function () {
 
   var defaults = {
     id: null,
@@ -71,4 +71,4 @@ window.Somrsault.options.Option = (function () {
   };
 
   return Option;
-})();
+})());

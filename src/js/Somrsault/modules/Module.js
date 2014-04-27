@@ -1,6 +1,5 @@
 'use strict';
-window.Somrsault.modules = {};
-window.Somrsault.modules.Module = (function ($) {
+Somrsault.util.define('Somrsault.modules.Module', (function ($) {
 
   var registeredModules = {};
   var moduleList = [];
@@ -52,4 +51,4 @@ window.Somrsault.modules.Module = (function ($) {
   };
 
   return Module;
-})(jQuery);
+})(jQuery));

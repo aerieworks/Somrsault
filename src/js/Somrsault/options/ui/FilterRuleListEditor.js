@@ -1,6 +1,5 @@
 'use strict';
-window.Somrsault.options.ui.FilterRuleListEditor = (function ($, E) {
-
+(function ($, E) {
   function showNewRuleEditor(ev) {
     var ruleNode = renderRule();
     ruleNode.addClass('editing');
@@ -19,11 +18,11 @@ window.Somrsault.options.ui.FilterRuleListEditor = (function ($, E) {
     var ruleNode = $(ev.target).closest('.filter-rule-container');
     var rule = ruleNode.data('rule');
     if (rule == null) {
-      rule = new Somrsault.FilterRule();
+      rule = new Somrsault.filter.FilterRule();
     }
 
     var selectedTypeValue = ruleNode.find('.filter-rule-part-editor.filter-rule-type').val();
-    rule.filterType = Somrsault.FilterRule.FilterTypes.getType(selectedTypeValue);
+    rule.filterType = Somrsault.filter.FilterRule.FilterTypes.getType(selectedTypeValue);
     rule.value = ruleNode.find('.filter-rule-part-editor.filter-rule-value').val();
     updateRule(ruleNode, rule);
     ruleNode.removeClass('editing');
@@ -42,7 +41,7 @@ window.Somrsault.options.ui.FilterRuleListEditor = (function ($, E) {
 
   function renderRule() {
     var filterTypeEditor = $('<select class="filter-rule-part-editor filter-rule-type"></select>');
-    Somrsault.FilterRule.FilterTypes.getAllTypes().forEach(function (type) {
+    Somrsault.filter.FilterRule.FilterTypes.getAllTypes().forEach(function (type) {
       filterTypeEditor.append($('<option></option>')
         .attr('value', type.value)
         .text(type.verb)
@@ -110,7 +109,7 @@ window.Somrsault.options.ui.FilterRuleListEditor = (function ($, E) {
       var me = this;
       var tempContainer = $('<div></div>');
       rules.forEach(function (rule) {
-        var editableRule = new Somrsault.FilterRule({
+        var editableRule = new Somrsault.filter.FilterRule({
           filterType: rule.filterType,
           value: rule.value
         });
@@ -124,7 +123,6 @@ window.Somrsault.options.ui.FilterRuleListEditor = (function ($, E) {
     }
   });
 
-  E.register(FilterRuleListEditor, Somrsault.FilterRule, true);
-  return FilterRuleListEditor;
+  E.register(FilterRuleListEditor, Somrsault.filter.FilterRule, true);
 })(jQuery, Somrsault.options.ui.Editor);
 

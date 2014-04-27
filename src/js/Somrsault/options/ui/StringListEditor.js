@@ -1,6 +1,5 @@
 'use strict';
-window.Somrsault.options.ui.StringListEditor = (function (E) {
-
+(function (E) {
   function addItemToList(me, item) {
     me.itemList.append($('<option />').val(item).text(item));
   }
@@ -87,6 +86,5 @@ window.Somrsault.options.ui.StringListEditor = (function (E) {
   });
 
   E.register(StringListEditor, String, true);
-  return StringListEditor;
 })(Somrsault.options.ui.Editor);
 

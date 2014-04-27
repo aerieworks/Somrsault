@@ -1,5 +1,5 @@
 'use strict';
-window.Somrsault.PostFilter = (function () {
+Somrsault.util.define('Somrsault.filter.PostFilter', (function () {
   var blogNameRe = new RegExp('^([0-9a-z_-]+)$');
 
   function buildRuleMap(rules, prefix) {
@@ -139,4 +139,4 @@ window.Somrsault.PostFilter = (function () {
   }
 
   return PostFilter;
-})();
+})());
