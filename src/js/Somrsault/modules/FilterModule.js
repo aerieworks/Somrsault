@@ -1,17 +1,23 @@
 'use strict';
 (function () {
-  function onExecute(page, options) {
+  function onPageLoad(page, options) {
     if (options.filterDashboard) {
       Somrsault.util.log('Filtering dashboard posts.');
-      this.filter = new Somrsault.filter.RejectAllowFilter(page, options);
-      this.filter.execute();
+      this.filter = new Somrsault.filter.RejectAllowFilter(options);
     } else {
       Somrsault.util.log('Not filtering dashboard posts.');
     }
   }
 
+  function onExecute(page, options) {
+    if (this.filter) {
+      this.filter.execute(page);
+    }
+  }
+
   Somrsault.modules.Module.register({
     name: 'Filters',
+    onPageLoad: onPageLoad,
     onExecute: onExecute,
     options: [
       {

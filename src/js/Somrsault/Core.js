@@ -29,6 +29,14 @@
 
     define: define,
 
+    error: function (message) {
+      Somrsault.util.log('[ERROR] ' + message);
+    },
+
+    info: function (message) {
+      Somrsault.util.log('[INFO] ' + message);
+    },
+
     log: function (message) {
       console.log('Somrsault: [' + Date.now() + '] ' + message);
     },
@@ -37,6 +45,10 @@
       if (typeof method == 'function') {
         method.apply(null, args);
       }
+    },
+
+    warn: function (message) {
+      Somrsault.util.log('[WARN] ' + message);
     }
   });
 

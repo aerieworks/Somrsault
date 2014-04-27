@@ -48,42 +48,28 @@ Somrsault.util.define('Somrsault.filter.RejectAllowFilter', (function (base) {
     return false;
   }
 
-  function doFilter(posts) {
-    var count = posts.length;
-    var lastUser;
-    var postUsers;
-    var postTags;
-    var post;
-    for (var i = 0; i < count; i++) {
-      post = $(posts[i]);
-      this.lastPost = post;
-      postUsers = this.getPostUsers(post);
-      if (postUsers.length == 0) {
-        postUsers = [ lastUser ];
-      } else {
-        lastUser = postUsers[0];
-      }
-      Somrsault.util.debug('Examining post by "' + postUsers.join(', ') + '"...');
+  function filterPost(post) {
+    var postTags = this.getPostTags(post);
+    var postUsers = this.getPostUsers(post);
+    Somrsault.util.debug('Examining post by "' + postUsers.join(', ') + '"...');
 
-      postTags = this.getPostTags(post);
-
-      var filteredUsers = findMatches(postUsers, this.rejectUsers);
-      var filteredTags = findMatches(postTags, this.rejectTags);
-      if ((filteredUsers.length > 0 && !isPostTagged(postTags, this.acceptTags)) || (filteredTags.length > 0 && !isPostBy(postUsers, this.acceptUsers))) {
-        var reasons = [];
-        if (filteredUsers.length > 0) {
-          reasons.push({ type: 'user', matches: filteredUsers });
-        }
-        if (filteredTags.length > 0) {
-          reasons.push({ type: 'tag', matches: filteredTags });
-        }
-        this.rejectPost(post, reasons);
+    var filteredUsers = findMatches(postUsers, this.rejectUsers);
+    var filteredTags = findMatches(postTags, this.rejectTags);
+    if ((filteredUsers.length > 0 && !isPostTagged(postTags, this.acceptTags)) || (filteredTags.length > 0 && !isPostBy(postUsers, this.acceptUsers))) {
+      var reasons = [];
+      if (filteredUsers.length > 0) {
+        reasons.push({ type: 'user', matches: filteredUsers });
       }
+      if (filteredTags.length > 0) {
+        reasons.push({ type: 'tag', matches: filteredTags });
+      }
+      return reasons;
     }
   }
 
-  function RejectAllowFilter(page, options) {
-    base.call(this, page, options);
+  function RejectAllowFilter(options) {
+    base.call(this);
+    this.name = 'RejectAllow';
 
     Somrsault.util.debug('Building rejected users map...');
     this.rejectUsers = buildRuleMap(options.rejectUsers);
@@ -96,7 +82,7 @@ Somrsault.util.define('Somrsault.filter.RejectAllowFilter', (function (base) {
   }
 
   RejectAllowFilter.prototype = $.extend(Object.create(base.prototype), {
-    doFilter: doFilter
+    filterPost: filterPost
   });
 
   return RejectAllowFilter;

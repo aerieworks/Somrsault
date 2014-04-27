@@ -1,11 +1,18 @@
 'use strict';
 (function () {
   function onPageLoad(page, options) {
-    //this.filter = new Somrsault.AdvancedPostFilter(options.rules);
+    if (options.useNewFilters) {
+      Somrsault.util.log('Filtering dashboard posts with new filters.');
+      this.filter = new Somrsault.filter.AdvancedPostFilter(options.rules);
+    } else {
+      Somrsault.util.log('Not filtering dashboard posts with new filters.');
+    }
   }
 
   function onExecute(page, options) {
-
+    if (this.filter) {
+      this.filter.execute(page);
+    }
   }
 
   window.Somrsault.modules.Module.register({

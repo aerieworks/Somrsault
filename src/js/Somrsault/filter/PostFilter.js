@@ -24,42 +24,57 @@ Somrsault.util.define('Somrsault.filter.PostFilter', (function () {
     return tagList;
   }
 
-  function filterNewPosts() {
-    Somrsault.util.debug('Post container modified.');
+  function filterPosts(me, page, posts, filterId) {
+    var count = posts.length;
+    for (var i = 0; i < count; i++) {
+      var post = $(posts[i]);
+      me.lastPost = post;
+
+      var rejectReasons = me.filterPost(post);
+      if (rejectReasons) {
+        me.rejectPost(page, post, rejectReasons, filterId);
+      }
+    }
+    Somrsault.util.info(me.name + ':' + filterId + '> Finished filtering posts.  Last: ' + me.lastPost.attr('id'));
+  }
+
+  function filterNewPosts(page) {
+    var filterId = Math.floor(Math.random() * 100000);
+    Somrsault.util.info(this.name + ':' + filterId + '> Post container modified.');
     if (this.lastPost != null) {
-      Somrsault.util.debug('Filtering newly loaded posts after ' + this.lastPost.attr('id'));
+      Somrsault.util.info(this.name + ':' + filterId + '> Filtering newly loaded posts after ' + this.lastPost.attr('id'));
       var newPosts = this.lastPost
         .closest('.post_container')
         .nextAll('.post_container')
+        .not('.somr-filtered')
         .children('.post');
-      this.doFilter(newPosts);
+      filterPosts(this, page, newPosts, filterId);
     }
   }
 
-  function rejectPost(post, reasons) {
-    Somrsault.util.log('Hiding post ' + post.attr('id'));
+  function rejectPost(page, post, reasons, filterId) {
+    Somrsault.util.info(this.name + ':' + filterId + '> Hiding post ' + post.attr('id'));
     post.closest('.post_container').addClass('somr-filtered');
-    this.page.onFilter.fire(this.page, post, reasons);
+    page.onFilter.fire(page, post, reasons);
   }
 
-  function PostFilter(page, options) {
-    var me = this;
-    this.page = page;
+  function PostFilter() {
     this.lastPost = null;
   }
 
   PostFilter.prototype = {
-    execute: function execute() {
-      var posts = this.page.postContainer
+    execute: function execute(page) {
+      var posts = page.postContainer
         .children('.post_container')
           .not('#new_post_buttons')
+          .not('.somr-filtered')
           .children('.post');
 
-      this.doFilter(posts);
+      filterPosts(this, page, posts, 0);
 
       // When the post container is modified, filter new posts.
-      var filterNewCallback = filterNewPosts.bind(this);
-      this.page.postContainer.on('DOMSubtreeModified', function (ev) {
+      var filterNewCallback = filterNewPosts.bind(this, page);
+      page.postContainer.on('DOMSubtreeModified', function (ev) {
         setTimeout(filterNewCallback, 1);
       });
     },
