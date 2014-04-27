@@ -21,8 +21,6 @@ window.Somrsault.modules.Module = (function ($) {
       throw 'Invalid module ID: "' + this.id + '"';
     }
 
-    this.serializers = [];
-
     var me = this;
     this.options = this.options.map(function (optionDef) {
       return new Somrsault.options.Option(me, optionDef);
