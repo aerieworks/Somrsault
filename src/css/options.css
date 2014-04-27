@@ -90,6 +90,25 @@ body {
   width: 195px;
 }
 
+.filter-rule-list {
+  padding-left: 10px;
+  list-style-type: none;
+}
+
+.filter-rule-part-editor,
+.editing .filter-rule-part {
+  display: none;
+}
+
+.editing .filter-rule-part-editor {
+  display: inline;
+}
+
+.filter-rule-actions {
+  display: inline-block;
+  margin-left: 10px;
+}
+
 .block-message {
   display: none;
 }

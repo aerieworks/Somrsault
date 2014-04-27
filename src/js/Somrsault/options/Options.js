@@ -34,6 +34,8 @@ window.Somrsault.options.Options = (function () {
     save: function save(modules, options, onSave) {
       var serialized = {};
       crawlOptions(modules, options, function (module, optionDef, source) {
+        Somrsault.util.debug('Saving option: ' + module.id + '.' + optionDef.id);
+        console.log(source);
         if (!serialized.hasOwnProperty(module.id)) {
           serialized[module.id] = {};
         }

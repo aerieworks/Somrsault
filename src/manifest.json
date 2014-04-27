@@ -12,9 +12,11 @@
       "js/Somrsault/Storage_Direct.js",
       "js/Somrsault/options/Options.js",
       "js/Somrsault/options/Option.js",
+      "js/Somrsault/FilterRule.js",
       "js/Somrsault/modules/Module.js",
       "js/Somrsault/modules/DashboardTweaksModule.js",
       "js/Somrsault/modules/FilterModule.js",
+      "js/Somrsault/modules/AdvancedFilterModule.js",
       "js/Somrsault/modules/PlaceholderModule.js",
       "js/background.js"
     ]
@@ -41,9 +43,12 @@
         "js/Somrsault/Storage_Message.js",
         "js/Somrsault/options/Options.js",
         "js/Somrsault/options/Option.js",
+        "js/Somrsault/FilterRule.js",
+        "js/Somrsault/options/ui/FilterRuleListEditor.js",
         "js/Somrsault/modules/Module.js",
         "js/Somrsault/modules/DashboardTweaksModule.js",
         "js/Somrsault/modules/FilterModule.js",
+        "js/Somrsault/modules/AdvancedFilterModule.js",
         "js/Somrsault/modules/PlaceholderModule.js",
         "js/Somrsault/PostFilter.js",
         "js/page.js"
