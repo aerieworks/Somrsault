@@ -8,15 +8,20 @@ Somrsault.util.define('Somrsault.filter.AdvancedPostFilter', (function (base, FT
     var tagsToFilter = [];
     var blogsToFilter = [];
     rules.forEach(function (rule) {
-      var valueAsRegEx = rule.value
-        .replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1")
-        .replace(/\s+/g, '\\s+');
+      var valueList;
       if (rule.filterType == FT.Tag) {
-        tagsToFilter.push(valueAsRegEx);
+        valueList = tagsToFilter;
       } else if (rule.filterType == FT.Blog) {
-        blogsToFilter.push(valueAsRegEx);
+        valueList = blogsToFilter;
       } else {
         Somrsault.util.warn('Unrecognized filter type: ' + rule.filterType.value);
+        return;
+      }
+
+      for (var i = 0; i < rule.values.length; i++) {
+        valueList.push(rule.values[i]
+          .replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1")
+          .replace(/\s+/g, '\\s+'));
       }
     });
 

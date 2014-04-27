@@ -49,8 +49,11 @@
       this.delItem = $('<input type="button" value="-" disabled="disabled" />').addClass(idBase + '-del');
       this.itemList = $('<select class="string-list-editor-field" size="10" multiple="multiple"></select>').addClass(idBase + '-list');
 
+      if (this.option.label != null) {
+        container.append($('<label class="string-list-editor-label"></label>').attr('for', newItemId).text(this.option.label).addClass(idBase + '-label'));
+      }
+
       container
-        .append($('<label class="string-list-editor-label"></label>').attr('for', newItemId).text(this.option.label).addClass(idBase + '-label'))
         .append(this.newItem)
         .append(this.addItem)
         .append(this.delItem)

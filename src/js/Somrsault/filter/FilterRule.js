@@ -23,7 +23,7 @@ Somrsault.util.define('Somrsault.filter.FilterRule', (function () {
 
   var defaults = {
     filterType: FilterTypes.Tag,
-    value: ''
+    values: []
   };
 
   function FilterRule(value) {
@@ -37,13 +37,18 @@ Somrsault.util.define('Somrsault.filter.FilterRule', (function () {
         }
       });
     }
+
+    if (this.value) {
+      this.values = [ this.value ];
+      delete this.value;
+    }
   }
 
   FilterRule.prototype = {
     serialize: function serialize() {
       return {
         filterType: this.filterType.value,
-        value: this.value
+        values: this.values
       };
     }
   };

@@ -1,7 +1,14 @@
 'use strict';
 (function ($, E) {
+  var valuesOptionBase = {
+    type: String,
+    list: true,
+    defaultValue: [],
+    label: null
+  };
+
   function showNewRuleEditor(ev) {
-    var ruleNode = renderRule();
+    var ruleNode = renderRule(this);
     ruleNode.addClass('editing');
     this.list.append(ruleNode);
   }
@@ -23,7 +30,7 @@
 
     var selectedTypeValue = ruleNode.find('.filter-rule-part-editor.filter-rule-type').val();
     rule.filterType = Somrsault.filter.FilterRule.FilterTypes.getType(selectedTypeValue);
-    rule.value = ruleNode.find('.filter-rule-part-editor.filter-rule-value').val();
+    rule.values = ruleNode.data('valuesEditor').get();
     updateRule(ruleNode, rule);
     ruleNode.removeClass('editing');
   }
@@ -35,11 +42,12 @@
       ruleNode.remove();
     } else {
       updateRule(ruleNode, rule);
+      ruleNode.data('valuesEditor').set(rule.values);
       ruleNode.removeClass('editing');
     }
   }
 
-  function renderRule() {
+  function renderRule(me, rule) {
     var filterTypeEditor = $('<select class="filter-rule-part-editor filter-rule-type"></select>');
     Somrsault.filter.FilterRule.FilterTypes.getAllTypes().forEach(function (type) {
       filterTypeEditor.append($('<option></option>')
@@ -48,11 +56,13 @@
       );
     });
 
-    return $('<li class="filter-rule-container"></li>')
+    var valuesEditorContainer = $('<span class="filter-rule-part-editor filter-rule-value"></span>');
+    var ruleNode = $('<li class="filter-rule-container"></li>')
       .append($('<div class="filter-rule-description"></div>')
         .append('Block posts <span class="filter-rule-part filter-rule-type"></span>')
         .append(filterTypeEditor)
-        .append('<span class="filter-rule-part filter-rule-value"></span><input type="text" class="filter-rule-part-editor filter-rule-value" />')
+        .append('<span class="filter-rule-part filter-rule-value"></span>')
+        .append(valuesEditorContainer)
         .append($('<span class="filter-rule-part filter-rule-actions">')
           .append('<button type="button" class="action filter-rule-action-edit">Edit</button>')
           .append('<button type="button" class="action filter-rule-action-delete">Delete</button>')
@@ -63,13 +73,27 @@
         .append('<button type="button" class="action filter-rule-action-cancel">Cancel</button>')
       );
 
+    me.list.append(ruleNode);
+
+    var valuesOption = new Somrsault.options.Option(me.option.module, $.extend({}, valuesOptionBase, {
+      id: me.option.id + 'Values'
+    }));
+    var valuesEditor = E.instantiateEditor(valuesOption, valuesEditorContainer, me.view);
+    ruleNode.data('valuesEditor', valuesEditor);
+
+    if (rule) {
+      updateRule(ruleNode, rule);
+      valuesEditor.set(rule.values);
+    }
+
+    return ruleNode;
   }
 
   function updateRule(node, rule) {
     node.data('rule', rule);
     node.find('.filter-rule-part.filter-rule-type').text(rule.filterType.verb);
     node.find('.filter-rule-part-editor.filter-rule-type').val(rule.filterType.value);
-    node.find('.filter-rule-part.filter-rule-value').text(' "' + rule.value + '"');
+    node.find('.filter-rule-part.filter-rule-value').text(' "' + rule.values.join('", "') + '"');
     node.find('.filter-rule-part-editor.filter-rule-value').val(rule.value);
   }
 
@@ -106,20 +130,15 @@
     },
 
     set: function set(rules) {
+      this.list.empty();
       var me = this;
-      var tempContainer = $('<div></div>');
       rules.forEach(function (rule) {
         var editableRule = new Somrsault.filter.FilterRule({
           filterType: rule.filterType,
-          value: rule.value
+          values: rule.values
         });
-        var ruleNode = renderRule();
-        updateRule(ruleNode, editableRule);
-        tempContainer.append(ruleNode);
+        var ruleNode = renderRule(me, editableRule);
       });
-
-      this.list.empty();
-      this.list.append(tempContainer.children());
     }
   });
 
