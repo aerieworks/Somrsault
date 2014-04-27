@@ -3,7 +3,8 @@
   function onExecute(page, options) {
     if (options.filterDashboard) {
       Somrsault.util.log('Filtering dashboard posts.');
-      new Somrsault.filter.PostFilter(page, options);
+      this.filter = new Somrsault.filter.RejectAllowFilter(page, options);
+      this.filter.execute();
     } else {
       Somrsault.util.log('Not filtering dashboard posts.');
     }

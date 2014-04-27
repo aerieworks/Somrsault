@@ -42,6 +42,7 @@
         "js/Somrsault/modules/AdvancedFilterModule.js",
         "js/Somrsault/modules/PlaceholderModule.js",
         "js/Somrsault/filter/PostFilter.js",
+        "js/Somrsault/filter/RejectAllowFilter.js",
         "js/page.js"
       ]
     }
