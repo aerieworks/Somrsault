@@ -24,7 +24,7 @@ Somrsault.util.define('Somrsault.filter.PostFilter', (function () {
     return tagList;
   }
 
-  function filterPosts(me, page, posts, filterId) {
+  function filterPosts(me, page, posts) {
     var count = posts.length;
     for (var i = 0; i < count; i++) {
       var post = $(posts[i]);
@@ -32,28 +32,27 @@ Somrsault.util.define('Somrsault.filter.PostFilter', (function () {
 
       var rejectReasons = me.filterPost(post);
       if (rejectReasons) {
-        me.rejectPost(page, post, rejectReasons, filterId);
+        me.rejectPost(page, post, rejectReasons);
       }
     }
-    Somrsault.util.info(me.name + ':' + filterId + '> Finished filtering posts.  Last: ' + me.lastPost.attr('id'));
+    Somrsault.util.info(me.name + '> Finished filtering posts.  Last: ' + me.lastPost.attr('id'));
   }
 
   function filterNewPosts(page) {
-    var filterId = Math.floor(Math.random() * 100000);
-    Somrsault.util.info(this.name + ':' + filterId + '> Post container modified.');
+    Somrsault.util.info(this.name + '> Post container modified.');
     if (this.lastPost != null) {
-      Somrsault.util.info(this.name + ':' + filterId + '> Filtering newly loaded posts after ' + this.lastPost.attr('id'));
+      Somrsault.util.info(this.name + '> Filtering newly loaded posts after ' + this.lastPost.attr('id'));
       var newPosts = this.lastPost
         .closest('.post_container')
         .nextAll('.post_container')
         .not('.somr-filtered')
         .children('.post');
-      filterPosts(this, page, newPosts, filterId);
+      filterPosts(this, page, newPosts);
     }
   }
 
-  function rejectPost(page, post, reasons, filterId) {
-    Somrsault.util.info(this.name + ':' + filterId + '> Hiding post ' + post.attr('id'));
+  function rejectPost(page, post, reasons) {
+    Somrsault.util.info(this.name + '> Hiding post ' + post.attr('id') + ': ' + JSON.stringify(reasons));
     post.closest('.post_container').addClass('somr-filtered');
     page.onFilter.fire(page, post, reasons);
   }

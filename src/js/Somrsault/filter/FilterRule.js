@@ -5,13 +5,14 @@ Somrsault.util.define('Somrsault.filter.FilterRule', (function () {
     Blog: { value: 1, verb: 'from' },
 
     getAllTypes:  function getAllTypes() {
-      return [ FilterTypes.Tag ];
+      return [ FilterTypes.Tag, FilterTypes.Blog ];
     },
 
     getType: function getType(value) {
       var types = this.getAllTypes();
+      var numericValue = parseInt(value);
       for (var i = 0; i < types.length; i++) {
-        if (types[i].value == value) {
+        if (types[i].value == numericValue) {
           return types[i];
         }
       }
