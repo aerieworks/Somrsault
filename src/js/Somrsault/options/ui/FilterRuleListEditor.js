@@ -100,7 +100,6 @@ window.Somrsault.options.ui.FilterRuleListEditor = (function ($, E) {
       var rules = [];
       this.list.children().each(function (index, child) {
         var rule = $(child).data('rule');
-        Somrsault.util.debug('Saved rule: ' + rule.filterType.verb + ' ' + rule.value);
         rules.push($(child).data('rule'));
       });
 
@@ -120,7 +119,6 @@ window.Somrsault.options.ui.FilterRuleListEditor = (function ($, E) {
         tempContainer.append(ruleNode);
       });
 
-      console.log(tempContainer);
       this.list.empty();
       this.list.append(tempContainer.children());
     }

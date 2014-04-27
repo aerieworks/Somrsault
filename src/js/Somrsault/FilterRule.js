@@ -41,7 +41,6 @@ window.Somrsault.FilterRule = (function () {
 
   FilterRule.prototype = {
     serialize: function serialize() {
-      Somrsault.util.debug('Serializing ' + this.filterType.verb + ' ' + this.value);
       return {
         filterType: this.filterType.value,
         value: this.value
