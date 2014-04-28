@@ -1,5 +1,5 @@
 'use strict';
-(function ($) {
+(function ($, FT) {
 
   function showFilteredPost(postContainer) {
     postContainer.addClass('somr-show-post');
@@ -11,7 +11,7 @@
 
   function onFilter(page, post, reasons) {
     var reasonParts = reasons.map(function (reason) {
-      return (reason.type == 'user' ? ' from ' : ' tagged ') + reason.matches.join(', ');
+      return ' ' + reason.type.verb + ' ' + reason.matches.join(', ');
     });
     var reasonMessage = reasonParts.join(' and ');
 
@@ -80,4 +80,4 @@
       }
     ]
   });
-})(jQuery);
+})(jQuery, Somrsault.filter.FilterRule);

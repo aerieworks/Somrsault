@@ -35,13 +35,10 @@ Somrsault.util.define('Somrsault.filter.PostFilter', (function () {
         me.rejectPost(page, post, rejectReasons);
       }
     }
-    Somrsault.util.info(me.name + '> Finished filtering posts.  Last: ' + me.lastPost.attr('id'));
   }
 
   function filterNewPosts(page) {
-    Somrsault.util.info(this.name + '> Post container modified.');
     if (this.lastPost != null) {
-      Somrsault.util.info(this.name + '> Filtering newly loaded posts after ' + this.lastPost.attr('id'));
       var newPosts = this.lastPost
         .closest('.post_container')
         .nextAll('.post_container')

@@ -1,5 +1,5 @@
 'use strict';
-Somrsault.util.define('Somrsault.filter.RejectAllowFilter', (function (base) {
+Somrsault.util.define('Somrsault.filter.RejectAllowFilter', (function (base, FT) {
 
   function buildRuleMap(rules, prefix) {
     var map = {};
@@ -58,10 +58,10 @@ Somrsault.util.define('Somrsault.filter.RejectAllowFilter', (function (base) {
     if ((filteredUsers.length > 0 && !isPostTagged(postTags, this.acceptTags)) || (filteredTags.length > 0 && !isPostBy(postUsers, this.acceptUsers))) {
       var reasons = [];
       if (filteredUsers.length > 0) {
-        reasons.push({ type: 'user', matches: filteredUsers });
+        reasons.push({ type: FT.Blog, matches: filteredUsers });
       }
       if (filteredTags.length > 0) {
-        reasons.push({ type: 'tag', matches: filteredTags });
+        reasons.push({ type: FT.Tag, matches: filteredTags });
       }
       return reasons;
     }
@@ -86,4 +86,4 @@ Somrsault.util.define('Somrsault.filter.RejectAllowFilter', (function (base) {
   });
 
   return RejectAllowFilter;
-})(Somrsault.filter.PostFilter));
+})(Somrsault.filter.PostFilter, Somrsault.filter.FilterRule));
